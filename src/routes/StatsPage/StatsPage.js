@@ -9,11 +9,11 @@ export default class StatsPage extends Component {
             <header>
                 <h1>My Stats</h1>
             </header>
-            <section class="cuisine_stats">
+            <section className="cuisine_stats">
                 <h3>Cuisine Breakdown</h3>
                 <CuisineBreakdown />
             </section>
-            <section class="favorite_restaurants">
+            <section className="favorite_restaurants">
                 <h3>Favorite Restaurants</h3>
                 <FavoriteRestaurants />
             </section>
