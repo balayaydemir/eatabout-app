@@ -16,6 +16,24 @@ export default class Header extends Component {
             </div>
         )
     }
+    renderLogoutLink() {
+        return (
+            <div className='Header__logged-in'>
+                <Link
+                    to='/myrestaurants'>
+                    My Restaurants
+                </Link>
+                <Link 
+                    to='/mystats'>
+                    My Stats
+                </Link>
+                <Link
+                    to='/'>
+                    Logout
+                </Link>
+            </div>
+        )
+    }
     render() {
         return (
             <nav className='Header'>

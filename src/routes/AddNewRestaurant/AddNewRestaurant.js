@@ -91,7 +91,7 @@ export default class AddNewRestaurant extends Component {
                     </div>
                     {this.state.visited ? this.renderVisitedForm() : ''}
                     <div className="form_section">
-                        <button type="button" id="cancel_form">Cancel</button>
+                        <button type="button" id="cancel_form" onClick={this.props.history.goBack}>Cancel</button>
                         <button type="submit">Add</button>
                     </div>
                 </form>

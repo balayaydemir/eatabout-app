@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import WishlistItem from '../../components/WishlistItem/WishlistItem';
 import VisitedItem from '../../components/VisitedItem/VisitedItem';
+import { Link } from 'react-router-dom';
 
 export default class RestaurantListPage extends Component {
     render() {
@@ -10,7 +11,7 @@ export default class RestaurantListPage extends Component {
                 <h1>My Restaurants</h1>
             </header>
             <section className="lists">
-                <button type="button">+ Add Restaurant</button>
+                <Link to='/addrestaurant'><button type="button">+ Add Restaurant</button></Link>
                 <div className="wishlist">
                     <h3>Wishlist</h3>
                     <button type="button">Filter +</button>
