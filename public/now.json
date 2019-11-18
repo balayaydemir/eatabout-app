@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "alias": "balayaydemir-eatabout-app",
+    "name": "eatabout-app",
+    "routes": [
+        {
+          "src": "^/static/(.*)",
+          "dest": "/static/$1"
+        },
+        {
+          "src": ".*",
+          "dest": "/index.html"
+        }
+    ]
+  }
