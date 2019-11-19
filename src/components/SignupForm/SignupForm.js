@@ -5,16 +5,12 @@ export default class SignupForm extends Component {
         return (
             <form className='signup-form'>
                 <div>
-                    <label htmlFor="first-name">First name</label>
+                    <label htmlFor="first-name">Username</label>
                     <input placeholder='First Name' type="text" name='first-name' id='first-name' />
                 </div>
                 <div>
-                    <label htmlFor="last-name">Last name</label>
+                    <label htmlFor="last-name">Full name</label>
                     <input type="text" name='last-name' id='last-name' placeholder='Last Name' />
-                </div>
-                <div>
-                    <label htmlFor="username">Email</label>
-                    <input type="text" name='username' id='username' />
                 </div>
                 <div>
                     <label htmlFor="password">Password</label>

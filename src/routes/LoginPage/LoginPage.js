@@ -1,24 +1,62 @@
 import React, { Component } from 'react';
 import SignupForm from '../../components/SignupForm/SignupForm';
+import AuthApiService from '../../services/auth-api-service';
+
 
 
 export default class LoginPage extends Component {
+    static defaultProps = {
+        location: {},
+        history: {
+          push: () => {},
+        },
+    }
+    state = { error: null }
+
+    onLoginSuccess = () => {
+        const { location, history } = this.props
+        const destination = (location.state || {}).from || '/myrestaurants'
+        history.push(destination)
+    }
+
+    handleSubmitJwtAuth = e => {
+        e.preventDefault();
+        this.setState({ error: null })
+        const { user_name, password } = e.target;
+        AuthApiService.postLogin({
+            user_name: user_name.value,
+            password: password.value,
+        })
+            .then(res => {
+                user_name.value = ''
+                password.value = ''
+                this.onLoginSuccess()
+            })
+            .catch(res => {
+                this.setState({ error: res.error })
+            })
+    }
+
     render() {
+        const { error } = this.state
         return (
             <>
                 <section className='login'>
                     <header>Log In</header>
-                    <form id="login_form">
-                        <div className="form_section">
-                            <label htmlFor="email">Email:</label>
-                            <input type="text" name="email"></input>
+                    <form className="LoginForm" onSubmit={this.handleSubmitJwtAuth}>
+                        <div role='alert'>
+                            {error && <p className='red'>{error}</p>}
                         </div>
                         <div className="form_section">
-                            <label htmlFor="password">Password:</label>
-                            <input type="text" name="password"></input>
+                            <label htmlFor="LoginForm__user_name">Username:</label>
+                            <input type="text" name="user_name" id="LoginForm__user_name"></input>
+                        </div>
+                        <div className="form_section">
+                            <label htmlFor="LoginForm__password">Password:</label>
+                            <input type="text" name="password" id="LoginForm__password"></input>
                         </div>
                         <button type="submit">Log In</button>
-                     </form>
+                    </form>
                 </section>
                 <section className='signup'>
                     <header>Not a member yet? Sign Up!</header>
