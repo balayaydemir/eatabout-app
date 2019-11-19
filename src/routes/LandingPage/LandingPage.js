@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import SignupForm from '../../components/SignupForm/SignupForm';
 
 export default class LandingPage extends Component {
+    onRegistrationSuccess = user => {
+        const { history } = this.props;
+        history.push('/login')
+    }
+
     render() {
         return (
             <>
@@ -33,7 +38,7 @@ export default class LandingPage extends Component {
                 <header>
                     <h3>Ready to Eatabout?</h3>
                 </header>
-                <SignupForm />
+                 <SignupForm registrationSuccess={this.onRegistrationSuccess}/>
             </section>
             </>
         )

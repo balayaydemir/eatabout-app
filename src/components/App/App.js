@@ -7,12 +7,22 @@ import AddNewRestaurant from '../../routes/AddNewRestaurant/AddNewRestaurant';
 import StatsPage from '../../routes/StatsPage/StatsPage';
 import RestaurantListPage from '../../routes/RestaurantListPage/RestaurantListPage';
 
+
 class App extends Component {
+  state = {
+    token: null
+  }
+
+  handleGetToken = (authToken) => {
+    this.setState({ token: authToken })
+  }
+
+
   render() {
     return (
       <div className='App'>
         <header className='App__header'>
-          <Header />
+          <Header handleGetToken={this.handleGetToken} token={this.state.token}/>
         </header>
         <main className='App__main'>
           <Switch>
@@ -23,7 +33,7 @@ class App extends Component {
             />
             <Route 
               path={'/login'}
-              component={LoginPage}
+              render={(routeProps) => <LoginPage {...routeProps} handleGetToken={this.handleGetToken}/>}
             />
             <Route 
               path={'/addrestaurant'}
@@ -45,3 +55,6 @@ class App extends Component {
 }
 
 export default App;
+
+
+// render={() => <LoginPage handleGetToken={this.handleGetToken}/>}

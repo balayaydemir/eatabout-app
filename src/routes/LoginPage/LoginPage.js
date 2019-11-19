@@ -4,6 +4,7 @@ import AuthApiService from '../../services/auth-api-service';
 
 
 
+
 export default class LoginPage extends Component {
     static defaultProps = {
         location: {},
@@ -11,13 +12,17 @@ export default class LoginPage extends Component {
           push: () => {},
         },
     }
-    state = { error: null }
+    state = { 
+        error: null
+    }
 
-    onLoginSuccess = () => {
+    onLoginSuccess = (authToken) => {
         const { location, history } = this.props
         const destination = (location.state || {}).from || '/myrestaurants'
+        this.props.handleGetToken(authToken)
         history.push(destination)
     }
+
 
     handleSubmitJwtAuth = e => {
         e.preventDefault();
@@ -30,12 +35,15 @@ export default class LoginPage extends Component {
             .then(res => {
                 user_name.value = ''
                 password.value = ''
-                this.onLoginSuccess()
+                this.onLoginSuccess(res.authToken)
             })
             .catch(res => {
                 this.setState({ error: res.error })
             })
     }
+
+
+
 
     render() {
         const { error } = this.state
@@ -57,10 +65,6 @@ export default class LoginPage extends Component {
                         </div>
                         <button type="submit">Log In</button>
                     </form>
-                </section>
-                <section className='signup'>
-                    <header>Not a member yet? Sign Up!</header>
-                    <SignupForm />
                 </section>
             </>
         )

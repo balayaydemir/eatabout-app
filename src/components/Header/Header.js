@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import TokenService from '../../services/token-service';
 
 export default class Header extends Component {
+
+    handleLogout = () => {
+        this.props.handleGetToken(null);
+        TokenService.clearAuthToken();
+    }
+
+
     renderLoginLink() {
         return (
             <div className='Header__not-logged-in'>
@@ -28,12 +36,15 @@ export default class Header extends Component {
                     My Stats
                 </Link>
                 <Link
+                    onClick={this.handleLogout}
                     to='/'>
                     Logout
                 </Link>
             </div>
         )
     }
+
+    
     render() {
         return (
             <nav className='Header'>
@@ -42,7 +53,7 @@ export default class Header extends Component {
                         Eatabout Logo
                     </Link>
                 </h1>
-                {this.renderLoginLink()}
+                {this.props.token ? this.renderLogoutLink() : this.renderLoginLink()}
             </nav>
         )
     }
