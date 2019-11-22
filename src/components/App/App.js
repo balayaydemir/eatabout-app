@@ -6,11 +6,12 @@ import LoginPage from '../../routes/LoginPage/LoginPage';
 import AddNewRestaurant from '../../routes/AddNewRestaurant/AddNewRestaurant';
 import StatsPage from '../../routes/StatsPage/StatsPage';
 import RestaurantListPage from '../../routes/RestaurantListPage/RestaurantListPage';
+import TokenService from '../../services/token-service';
 
 
 class App extends Component {
   state = {
-    token: null
+    token: TokenService.getAuthToken()
   }
 
   handleGetToken = (authToken) => {

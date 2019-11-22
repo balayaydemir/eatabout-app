@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
+
 export default class RestaurantEntries extends Component {
+
+    state = {
+        expanded: false
+    }
 
     renderItems() {
         return this.props.entry.items.map(itm => {
@@ -14,13 +19,20 @@ export default class RestaurantEntries extends Component {
         })
     }
 
+    toggleExpanded = () => {
+        this.setState({
+            expanded: !this.state.expanded
+        })
+    }
+
     render() {
-        const { entry } = this.props
+        const { entry, renderDate } = this.props
         return (
                 <li>
-                  {entry.date}
+                  {renderDate(entry.date)}
+                    <button type="button" id="expand" onClick={this.toggleExpanded}>{this.state.expanded ? '-' : '+'}</button>
                   <ul>
-                    {this.renderItems()}
+                    {this.state.expanded ? this.renderItems() : ''}
                   </ul>
                 </li>
         )

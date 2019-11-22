@@ -1,10 +1,91 @@
 import React, { Component } from 'react';
+import RestaurantsApiService from '../../services/restaurant-api-service';
 
 export default class EditEntryForm extends Component {
+    state = {
+      items: [],
+      error: null
+    }
+
+    renderItems() {
+      return this.state.items.map((itm, index) => {
+        return (
+          <li key={index} id={'Item-' + index}>
+            <label htmlFor="item_name">Name of item:</label>
+            <input type="text" name="item_name" onChange={this.handleChange}></input>
+            <button type="button">Add photo</button>
+            <label htmlFor="item_description">Describe it:</label>
+            <textarea name="item_description" placeholder="Enter description" onChange={this.handleChange}></textarea>
+          </li>
+        )
+      })
+    }
+
+    handleChange = e => {
+      const targetItemId = e.target.closest('li').id;
+      const targetItemIndex = parseInt(targetItemId.charAt(targetItemId.length - 1))
+      const newItems = this.state.items.slice()
+      if (e.target.name === 'item_name') {
+        newItems[targetItemIndex].name = e.target.value
+        this.setState({
+            items: newItems
+        })
+      }
+      if(e.target.name === 'item_description') {
+          newItems[targetItemIndex].description = e.target.value
+          this.setState({
+              items: newItems
+          })
+      }
+    }
+
+
+    createItem = (e) => {
+      let newItem = { name: '', photo: '', description: '' };
+      this.setState({ 
+          items: [...this.state.items, newItem]
+      })
+    }
+
+    handleSubmit = e => {
+      e.preventDefault();
+      const { restaurant } = this.props;
+      let { rating, visited_date, notes } = e.target
+      const body = {
+        visited: restaurant.visited,
+        rating: rating.value,
+        date_visited: visited_date.value,
+        description: notes.value
+      }
+      RestaurantsApiService.editUserRestaurant(restaurant.id, body)
+        .then(() => {
+          const newEntry = {
+            date: visited_date.value, 
+            user_restaurant_id: restaurant.id,
+            user_id: restaurant.user_id
+          }
+          return RestaurantsApiService.insertEntry(newEntry)
+        })
+        .then(res => {
+          const items = this.state.items.map(itm => {
+            return {
+              name: itm.name,
+              description: itm.description,
+              entry_id: res.id
+            }
+          });
+          items.forEach(itm => RestaurantsApiService.insertItem(itm))
+        })
+        .catch(error => {
+          console.error(error)
+          this.setState({ error })
+        })
+    }
+
     render() {
         return (
             <div className="edit_item">
-                <form id="edit_item">
+                <form id="edit_item" onSubmit={this.handleSubmit}>
                   <div className="form_section">
                     <label htmlFor="rating">Change rating:</label>
                     <input type="radio" value="1" name="rating"></input>
@@ -24,15 +105,10 @@ export default class EditEntryForm extends Component {
                   </div>
                   <div className="form_section">
                     <label htmlFor="items_ordered">What I ate:</label>
-                  <div id="items_ordered">
-                    <label htmlFor="item_name">Name of item:</label>
-                    <input type="text" name="item_name"></input>
-                    <button type="button">Add photo</button>
-                    <label htmlFor="item_description">Describe it:</label>
-                    <textarea name="item_description" placeholder="Enter description"></textarea>
-                    <button type="submit">Save</button>
-                  </div>
-                    <button type="button">Add another item</button>
+                  <ul id="items_ordered">
+                    {this.renderItems()}
+                  </ul>
+                  <button type="button" onClick={this.createItem}>{!this.state.items.length ? 'Add an item' : 'Add another item'}</button>
                   </div>
                   <div className="form_section">
                     <label htmlFor="notes">Describe this experience:</label>

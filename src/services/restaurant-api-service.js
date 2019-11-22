@@ -126,6 +126,19 @@ const RestaurantsApiService = {
                     : res.json()
             )
     },
+    deleteUserRestaurant(id) {
+        fetch(`${config.API_ENDPOINT}/restaurants/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'authorization': `bearer ${TokenService.getAuthToken()}`,
+            },
+        })
+            .then(res => 
+                (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : ''
+            )
+    }
 
 
 

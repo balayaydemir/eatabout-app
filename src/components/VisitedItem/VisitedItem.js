@@ -7,6 +7,7 @@ export default class VisitedItem extends Component {
     state = {
         edit: false,
         entries: [],
+        expanded: false,
         error: null
     }
 
@@ -29,7 +30,43 @@ export default class VisitedItem extends Component {
     }
 
     renderEntries() {
-      return this.state.entries.map(entry => <RestaurantEntries key={entry.id} entry={entry}/>)
+      return this.state.entries.map(entry => <RestaurantEntries key={entry.id} entry={entry} renderDate={this.renderDate}/>)
+    }
+
+    handleDelete = () => {
+      return this.props.onDelete(this.props.restaurant.id)
+    }
+
+    toggleExpanded = () => {
+      this.setState({
+        expanded: !this.state.expanded
+      })
+    }
+
+    renderExpanded(restaurant, error) {
+      return (
+        <div className="expanded">
+        <div className="expanded_buttons">
+         <span>Last visited: {this.renderDate(restaurant.date_visited)}</span>
+        <a href={restaurant.restaurant.website} className="button">Go to website</a>
+        <span>{restaurant.restaurant.cuisine_name}</span>
+        <button type="button" onClick={this.toggleEdit}>Edit</button>
+        </div>
+        <p>{restaurant.description}</p>
+        <ul className="restaurant_entries">
+          {error ? <p>There was an error, try again</p> : this.renderEntries()}
+        </ul>
+        {this.state.edit ? <EditEntryForm toggleEdit={this.toggleEdit} restaurant={this.props.restaurant}/> : ''}
+        </div>
+      )
+    }
+
+    renderDate(date) {
+      const year = date.slice(0, 4)
+      const day = date.slice(8, 10)
+      const month = date.slice(5, 7)
+
+      return `${month}/${day}/${year}`
     }
 
     render() {
@@ -41,22 +78,10 @@ export default class VisitedItem extends Component {
               <span>{restaurant.restaurant.name}</span>
               <span>{restaurant.rating} stars</span>
               <span>{restaurant.restaurant.city}</span>
-              <button type="button" id="delete_item">Delete</button>
-              <span id="expand">-</span>
+              <button type="button" id="delete_item" onClick={this.handleDelete}>Delete</button>
+              <button type="button" id="expand" onClick={this.toggleExpanded}>{this.state.expanded ? '-' : '+'}</button>
               </div>
-              <div className="expanded">
-              <div className="expanded_buttons">
-               <span>Last visited: {restaurant.date_visited}</span>
-              <a href={restaurant.restaurant.website} className="button">Go to website</a>
-              <span>{restaurant.restaurant.cuisine_name}</span>
-              <button type="button" onClick={this.toggleEdit}>Edit</button>
-              </div>
-              <p>{restaurant.description}</p>
-              <ul className="restaurant_entries">
-                {error ? <p>There was an error, try again</p> : this.renderEntries()}
-              </ul>
-              {this.state.edit ? <EditEntryForm toggleEdit={this.toggleEdit}/> : ''}
-              </div>
+              {this.state.expanded ? this.renderExpanded(restaurant, error) : ''}
             </li>
         )
     }

@@ -35,10 +35,8 @@ export default class AddNewRestaurant extends Component {
             });
         
     }
-
-
     
-    handleSubmit = e => {
+    handleSubmit = async e => {
         e.preventDefault()
             const { restaurant_name, restaurant_url, cuisine, restaurant_state, restaurant_city, rating, notes, visited_date } = e.target
             const cuisineId = this.state.cuisines.find(itm => itm.cuisine_name === cuisine.value).id
@@ -49,14 +47,14 @@ export default class AddNewRestaurant extends Component {
                 city: restaurant_city.value, 
                 state: restaurant_state.value
             }
-            RestaurantsApiService.addNewRestaurant(newRestaurantBody)
-                .then(res => {
-                    if (!this.state.visited) {
+            try {
+            let res = await RestaurantsApiService.addNewRestaurant(newRestaurantBody);
+                if (!this.state.visited) {
                     const newUserRestaurantBody = {
                         visited: this.state.visited,
                         restaurant_id: res.id
                     }
-                    return RestaurantsApiService.addNewUserRestaurant(newUserRestaurantBody)
+                    res = await RestaurantsApiService.addNewUserRestaurant(newUserRestaurantBody)
                 } else {
                     const newUserRestaurantBody = {
                         visited: this.state.visited,
@@ -65,18 +63,17 @@ export default class AddNewRestaurant extends Component {
                         description: notes.value,
                         date_visited: visited_date.value
                     }
-                    return RestaurantsApiService.addNewUserRestaurant(newUserRestaurantBody)
+                    res = await RestaurantsApiService.addNewUserRestaurant(newUserRestaurantBody)
                 }
-                })
-                .then(res => {
+                if(!this.state.visited) {
+                    return 
+                }
                     const newEntry = {
                         date: res.date_visited,
                         user_restaurant_id: res.id,
                         user_id: res.user_id
                     }
-                    return RestaurantsApiService.insertEntry(newEntry)
-                })
-                .then(res => {
+                    res = await RestaurantsApiService.insertEntry(newEntry)
                     const items = this.state.items.map(itm => {
                         return {
                             name: itm.name,
@@ -85,11 +82,11 @@ export default class AddNewRestaurant extends Component {
                         }
                     });
                     items.forEach(itm => RestaurantsApiService.insertItem(itm));
-                })
-                .catch(error => {
-                    console.error(error)
-                    this.setState({ error })
-                })
+            }
+            catch(error) {
+                console.error(error)
+                this.setState({ error })
+            }
     }
 
     handleChange = e => {
