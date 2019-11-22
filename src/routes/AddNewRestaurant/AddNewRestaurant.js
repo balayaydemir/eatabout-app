@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import RestaurantsApiService from '../../services/restaurant-api-service';
 
 
 export default class AddNewRestaurant extends Component {
     state = {
-        visited: false
+        visited: false,
+        cuisines: [],
+        restaurants: [],
+        items: [],
+        error: null
     }
 
     toggleVisited = () => {
@@ -11,6 +16,122 @@ export default class AddNewRestaurant extends Component {
             visited: !this.state.visited
         })
     }
+
+    componentDidMount() {
+        this.setState({ error: null })
+        RestaurantsApiService.getAllCuisines()
+            .then(cuisines => {
+                this.setState({ cuisines })
+            })
+            .then(() => {
+                RestaurantsApiService.getAllRestaurants()
+                    .then(restaurants => {
+                        this.setState({ restaurants })
+                    })
+            })
+            .catch(error => {
+                console.error(error)
+                this.setState({ error })
+            });
+        
+    }
+
+
+    
+    handleSubmit = e => {
+        e.preventDefault()
+            const { restaurant_name, restaurant_url, cuisine, restaurant_state, restaurant_city, rating, notes, visited_date } = e.target
+            const cuisineId = this.state.cuisines.find(itm => itm.cuisine_name === cuisine.value).id
+            const newRestaurantBody = {
+                name: restaurant_name.value, 
+                website: restaurant_url.value, 
+                cuisine: cuisineId,
+                city: restaurant_city.value, 
+                state: restaurant_state.value
+            }
+            RestaurantsApiService.addNewRestaurant(newRestaurantBody)
+                .then(res => {
+                    if (!this.state.visited) {
+                    const newUserRestaurantBody = {
+                        visited: this.state.visited,
+                        restaurant_id: res.id
+                    }
+                    return RestaurantsApiService.addNewUserRestaurant(newUserRestaurantBody)
+                } else {
+                    const newUserRestaurantBody = {
+                        visited: this.state.visited,
+                        restaurant_id: res.id,
+                        rating: rating.value, 
+                        description: notes.value,
+                        date_visited: visited_date.value
+                    }
+                    return RestaurantsApiService.addNewUserRestaurant(newUserRestaurantBody)
+                }
+                })
+                .then(res => {
+                    const newEntry = {
+                        date: res.date_visited,
+                        user_restaurant_id: res.id,
+                        user_id: res.user_id
+                    }
+                    return RestaurantsApiService.insertEntry(newEntry)
+                })
+                .then(res => {
+                    const items = this.state.items.map(itm => {
+                        return {
+                            name: itm.name,
+                            description: itm.description,
+                            entry_id: res.id
+                        }
+                    });
+                    items.forEach(itm => RestaurantsApiService.insertItem(itm));
+                })
+                .catch(error => {
+                    console.error(error)
+                    this.setState({ error })
+                })
+    }
+
+    handleChange = e => {
+      const targetItemId = e.target.closest('li').id;
+      const targetItemIndex = parseInt(targetItemId.charAt(targetItemId.length - 1))
+      const newItems = this.state.items.slice()
+      if (e.target.name === 'item_name') {
+        newItems[targetItemIndex].name = e.target.value
+        this.setState({
+            items: newItems
+        })
+      }
+      if(e.target.name === 'item_description') {
+          newItems[targetItemIndex].description = e.target.value
+          this.setState({
+              items: newItems
+          })
+      }
+    }
+
+
+    renderItems() {
+        return this.state.items.map((itm, index) => {
+            return (
+                <li key={index} id={'Item-' + index}>
+                <label htmlFor="item_name">Name of item:</label>
+                <input type="text" name="item_name" onChange={this.handleChange}></input>
+                <button type="button">Add photo</button>
+                <label htmlFor="item_description">Describe it:</label>
+                <textarea name="item_description" placeholder="Enter description" onChange={this.handleChange}></textarea>
+                </li>
+            )
+        })
+    }
+
+    createItem = (e) => {
+        let newItem = { name: '', photo: '', description: '' };
+        this.setState({ 
+            items: [...this.state.items, newItem]
+        })
+    }
+    
     renderVisitedForm() {
         return (
             <>
@@ -27,21 +148,13 @@ export default class AddNewRestaurant extends Component {
                 <input type="radio" value="5" name="rating"></input>
                 <label htmlFor="rating">5</label>
             </div>
+            <div className="form_section">
+                        <label htmlFor="notes">Description:</label>
+                        <textarea name="notes" placeholder="Enter details"></textarea>
+                    </div>
             <div className="form_section js_visited">
                 <label htmlFor="visited_date">Visited on:</label>
                 <input type="date" name="visited_date"></input>
-            </div>
-            <div className="form_section js_visited">
-                <label htmlFor="items_ordered">What I ate:</label>
-            <div id="items_ordered">
-                <label htmlFor="item_name">Name of item:</label>
-                <input type="text" name="item_name"></input>
-                <button type="button">Add photo</button>
-                <label htmlFor="item_description">Describe it:</label>
-                <textarea name="item_description" placeholder="Enter description"></textarea>
-                <button type="submit">Save</button>
-            </div>
-                <button type="button">Add another item</button>
             </div>
             </>
         )
@@ -50,7 +163,7 @@ export default class AddNewRestaurant extends Component {
         return (
            <section>
                <header>New Restaurant</header>
-               <form id="add_restaurant">
+               <form id="add_restaurant" onSubmit={this.handleSubmit}>
                     <div className="form_section">
                         <input type="radio" value="wishlist" id="check_wishlist" name="entry_type" checked={!this.state.visited} onChange={this.toggleVisited}></input>
                         <label htmlFor="check_wishlist">Wishlist</label>
@@ -68,28 +181,29 @@ export default class AddNewRestaurant extends Component {
                     <div className="form_section">
                         <label htmlFor="cuisine">Type of cuisine:</label>
                         <select name="cuisine">
-                            <option>Mediterranean</option>
-                            <option>Japanese</option>
-                            <option>BBQ</option>
-                            <option>Italian</option>
-                            <option>etc...</option>
+                            {this.state.cuisines.map(cuisine => {
+                                return (
+                                <option key={cuisine.id}>{cuisine.cuisine_name}</option>
+                                )
+                            })}
                         </select>
                     </div>
                     <div className="form_section">
                         <label htmlFor="restaurant_city">City:</label>
                         <input type="text" name="restaurant_city"></input>
                         <label htmlFor="restaurant_state">State:</label>
-                        <select name="restaurant_state">
-                            <option>CA</option>
-                            <option>NY</option>
-                            <option>etc...</option>
-                        </select>
-                    </div>
-                    <div className="form_section">
-                        <label htmlFor="notes">Description:</label>
-                        <textarea name="notes" placeholder="Enter details"></textarea>
+                        <input type="text" name="restaurant_state"></input>
                     </div>
                     {this.state.visited ? this.renderVisitedForm() : ''}
+                    {this.state.visited ?  
+                    <div className="form_section js_visited">
+                        <label htmlFor="items_ordered">What I ate:</label>
+                        <ul id="items_ordered">
+                            {this.renderItems()}
+                        </ul>
+                        <button type="button" onClick={this.createItem}>{!this.state.items.length ? 'Add an item' : 'Add another item'}</button>
+                     </div> 
+                     : ''}
                     <div className="form_section">
                         <button type="button" id="cancel_form" onClick={this.props.history.goBack}>Cancel</button>
                         <button type="submit">Add</button>
