@@ -2,17 +2,13 @@ import React, { Component } from 'react';
 import RestaurantsApiService from '../../services/restaurant-api-service';
 
 
-export default class MoveToVisitedForm extends Component {
+
+class MoveToVisitedForm extends Component {
 
     state = { 
       error: null,
-      // visited_on: null,
       items: []
     }
-
-    // setVisitedDate = e => {
-    //   this.setState({ visited_on: e.target.value })
-    // }
 
     moveToVisited = e => {
       e.preventDefault();
@@ -43,6 +39,7 @@ export default class MoveToVisitedForm extends Component {
             }
           });
           items.forEach(itm => RestaurantsApiService.insertItem(itm))
+          window.location.reload(false)
         })
         .catch(error => {
           console.error(error)
@@ -90,6 +87,13 @@ export default class MoveToVisitedForm extends Component {
       })
     }
 
+    handleCancel = () => {
+      this.setState({
+        items: []
+      })
+      this.props.toggleVisited()
+    }
+
     render() {
       const { error } = this.state
         return (
@@ -125,7 +129,7 @@ export default class MoveToVisitedForm extends Component {
                     <textarea name="notes" placeholder="Enter details"></textarea>
                   </div>
                   <div className="form_section">
-                    <button type="button" id="cancel_form">Cancel</button>
+                    <button type="button" id="cancel_form" onClick={this.handleCancel}>Cancel</button>
                     <button type="submit">Done</button>
                   </div>
                 </form>
@@ -133,3 +137,5 @@ export default class MoveToVisitedForm extends Component {
         )
     }
 }
+
+export default MoveToVisitedForm

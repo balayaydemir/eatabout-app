@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 export default class CuisineBreakdown extends Component {
     render() {
         return (

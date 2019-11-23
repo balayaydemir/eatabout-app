@@ -66,6 +66,7 @@ export default class AddNewRestaurant extends Component {
                     res = await RestaurantsApiService.addNewUserRestaurant(newUserRestaurantBody)
                 }
                 if(!this.state.visited) {
+                    this.props.history.goBack();
                     return 
                 }
                     const newEntry = {
@@ -78,10 +79,12 @@ export default class AddNewRestaurant extends Component {
                         return {
                             name: itm.name,
                             description: itm.description,
+                            image: itm.photo,
                             entry_id: res.id
                         }
                     });
                     items.forEach(itm => RestaurantsApiService.insertItem(itm));
+                    this.props.history.goBack();
             }
             catch(error) {
                 console.error(error)
@@ -105,6 +108,12 @@ export default class AddNewRestaurant extends Component {
               items: newItems
           })
       }
+      if (e.target.name === 'photo_upload') {
+          newItems[targetItemIndex].photo = e.target.value
+          this.setState({
+              items: newItems
+          })
+      }
     }
 
 
@@ -114,7 +123,8 @@ export default class AddNewRestaurant extends Component {
                 <li key={index} id={'Item-' + index}>
                 <label htmlFor="item_name">Name of item:</label>
                 <input type="text" name="item_name" onChange={this.handleChange}></input>
-                <button type="button">Add photo</button>
+                <label htmlFor="photo_upload">Add a photo: </label>
+                <input type="text" name="photo_upload" onChange={this.handleChange} placeholder="Enter image url (via imgur or other image upload service)"></input>
                 <label htmlFor="item_description">Describe it:</label>
                 <textarea name="item_description" placeholder="Enter description" onChange={this.handleChange}></textarea>
                 </li>

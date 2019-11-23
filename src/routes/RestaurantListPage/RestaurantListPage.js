@@ -15,7 +15,9 @@ export default class RestaurantListPage extends Component {
         filterCuisineWishlist: null,
         filterCityVisited: null, 
         filterCuisineVisited: null, 
-        filterRating: null
+        filterRating: null,
+        wishlistExpand: false,
+        visitedExpand: false
     }
 
     componentDidMount() {
@@ -134,6 +136,18 @@ export default class RestaurantListPage extends Component {
         })
     }
 
+    toggleWishListExpand = () => {
+        this.setState({
+            wishlistExpand: !this.state.wishlistExpand
+        })
+    }
+
+    toggleVisitedExpand = () => {
+        this.setState({
+            visitedExpand: !this.state.visitedExpand
+        })
+    }
+
     renderWishlistRestaurants() {
         let restaurants = this.state.restaurantsList.filter(restaurant => restaurant.visited === false)
         if (this.state.filterCityWishlist) {
@@ -164,6 +178,30 @@ export default class RestaurantListPage extends Component {
         return restaurants.map(restaurant => <VisitedItem key={restaurant.id} restaurant={restaurant} onDelete={this.onDelete}/>)
     }
 
+    renderWishlist(error) {
+        return (
+            <>
+                 <button type="button" onClick={this.toggleWishListFilter}>{this.state.wishlistFilter ? 'Filter -' : 'Filter +'}</button>
+                    {this.state.wishlistFilter ? this.renderFilterWishlist() : ''}
+                    <ul>
+                        {error ? <p className='red'>There was an error, try again</p> : this.renderWishlistRestaurants()}
+                    </ul>
+            </>
+        )
+    }
+
+    renderVisited(error) {
+        return (
+            <>
+            <button type="button" onClick={this.toggleVisitedFilter}>{this.state.visitedFilter ? 'Filter -' : 'Filter +'}</button>
+                    {this.state.visitedFilter ? this.renderFilterVisited() : ''}
+                    <ul>
+                        {error ? <p className='red'>There was an error, try again</p> : this.renderVisitedRestaurants()}
+                    </ul>
+            </>
+        )
+    }
+
     render() {
         const { error } = this.state
         return (
@@ -175,19 +213,13 @@ export default class RestaurantListPage extends Component {
                 <Link to='/addrestaurant'><button type="button">+ Add Restaurant</button></Link>
                 <div className="wishlist">
                     <h3>Wishlist</h3>
-        <button type="button" onClick={this.toggleWishListFilter}>{this.state.wishlistFilter ? 'Filter -' : 'Filter +'}</button>
-                    {this.state.wishlistFilter ? this.renderFilterWishlist() : ''}
-                    <ul>
-                        {error ? <p className='red'>There was an error, try again</p> : this.renderWishlistRestaurants()}
-                    </ul>
+        <button type="button" id="expand" onClick={this.toggleWishListExpand}>{this.state.wishlistExpand ? '-' : '+'}</button>
+                {this.state.wishlistExpand ? this.renderWishlist(error) : ''}
                 </div>
                 <div className="visited">
                     <h3>Visited</h3>
-        <button type="button" onClick={this.toggleVisitedFilter}>{this.state.visitedFilter ? 'Filter -' : 'Filter +'}</button>
-                    {this.state.visitedFilter ? this.renderFilterVisited() : ''}
-                    <ul>
-                        {error ? <p className='red'>There was an error, try again</p> : this.renderVisitedRestaurants()}
-                    </ul>
+                    <button type="button" id="expand" onClick={this.toggleVisitedExpand}>{this.state.visitedExpand ? '-' : '+'}</button>
+                    {this.state.visitedExpand ? this.renderVisited(error) : ''}
                 </div>
              </section>
             </>

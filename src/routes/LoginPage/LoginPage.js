@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import AuthApiService from '../../services/auth-api-service';
 
 
-
+const EVENT_KEY_DOWN = 'keydown'
+const EVENT_KEY_UP = 'keyup'
 
 export default class LoginPage extends Component {
     static defaultProps = {
@@ -11,9 +12,37 @@ export default class LoginPage extends Component {
           push: () => {},
         },
     }
+
+
     state = { 
-        error: null
+        error: null,
+        isCapsLockActive: false
     }
+
+    componentDidMount() {
+        document.addEventListener(EVENT_KEY_DOWN, this.wasCapsLockActivated)
+        document.addEventListener(EVENT_KEY_UP, this.wasCapsLockDeactivated)
+    }
+
+    wasCapsLockActivated = event => {
+        if (
+          event.getModifierState &&
+          event.getModifierState('CapsLock') &&
+          this.state.isCapsLockActive === false
+        ) {
+          this.setState({ isCapsLockActive: true })
+        }
+      }
+    
+    wasCapsLockDeactivated = event => {
+        if (
+          event.getModifierState &&
+          !event.getModifierState('CapsLock') &&
+          this.state.isCapsLockActive === true
+        ) {
+          this.setState({ isCapsLockActive: false })
+        }
+      }
 
     onLoginSuccess = (authToken) => {
         const { location, history } = this.props
@@ -43,7 +72,6 @@ export default class LoginPage extends Component {
 
 
 
-
     render() {
         const { error } = this.state
         return (
@@ -60,7 +88,8 @@ export default class LoginPage extends Component {
                         </div>
                         <div className="form_section">
                             <label htmlFor="LoginForm__password">Password:</label>
-                            <input type="text" name="password" id="LoginForm__password"></input>
+                            <input type="password" name="password" id="LoginForm__password"></input>
+                            {this.state.isCapsLockActive ? <strong>Caps Lock is On!</strong> : ''}
                         </div>
                         <button type="submit">Log In</button>
                     </form>

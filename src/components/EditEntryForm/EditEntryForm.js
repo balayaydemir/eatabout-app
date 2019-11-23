@@ -47,6 +47,13 @@ export default class EditEntryForm extends Component {
       })
     }
 
+    handleCancel = () => {
+      this.setState({
+        items: []
+      })
+      this.props.toggleEdit()
+    }
+
     handleSubmit = e => {
       e.preventDefault();
       const { restaurant } = this.props;
@@ -75,6 +82,7 @@ export default class EditEntryForm extends Component {
             }
           });
           items.forEach(itm => RestaurantsApiService.insertItem(itm))
+          window.location.reload(false)
         })
         .catch(error => {
           console.error(error)
@@ -115,7 +123,7 @@ export default class EditEntryForm extends Component {
                     <textarea name="notes" placeholder="Enter details"></textarea>
                   </div>
                   <div className="form_section">
-                    <button type="button" id="cancel_form" onClick={this.props.toggleEdit}>Cancel</button>
+                    <button type="button" id="cancel_form" onClick={this.handleCancel}>Cancel</button>
                     <button type="submit">Done</button>
                   </div>
                 </form>
