@@ -138,6 +138,18 @@ const RestaurantsApiService = {
                     ? res.json().then(e => Promise.reject(e))
                     : ''
             )
+    },
+    uploadPhoto(file) {
+        console.log(file.name);
+        let form = new FormData();
+        form.append('photo_upload', file);
+         fetch(`${config.API_ENDPOINT}/upload`, {
+             method: 'POST',
+             headers: {
+                 'content-type': 'multipart/form-data',
+             },
+             body: form
+         })
     }
 
 

@@ -79,7 +79,6 @@ export default class AddNewRestaurant extends Component {
                         return {
                             name: itm.name,
                             description: itm.description,
-                            image: itm.photo,
                             entry_id: res.id
                         }
                     });
@@ -109,10 +108,23 @@ export default class AddNewRestaurant extends Component {
           })
       }
       if (e.target.name === 'photo_upload') {
-          newItems[targetItemIndex].photo = e.target.value
-          this.setState({
-              items: newItems
-          })
+          const file = e.target.files[0]
+
+          RestaurantsApiService.uploadPhoto(file)
+            // .then(res => {
+            //     newItems[targetItemIndex].photo = res
+            //     this.setState({
+            //         items: newItems
+            //     })
+            // })
+            // .catch(err => {
+            //     console.error(err)
+            //     this.setState({ error: err })
+            // })
+        //   newItems[targetItemIndex].photo = e.target.files[0]
+        //   this.setState({
+        //       items: newItems
+        //   })
       }
     }
 
@@ -124,7 +136,7 @@ export default class AddNewRestaurant extends Component {
                 <label htmlFor="item_name">Name of item:</label>
                 <input type="text" name="item_name" onChange={this.handleChange}></input>
                 <label htmlFor="photo_upload">Add a photo: </label>
-                <input type="text" name="photo_upload" onChange={this.handleChange} placeholder="Enter image url (via imgur or other image upload service)"></input>
+                <input type="file" id="photo_upload" name="photo_upload" onChange={this.handleChange} ></input>
                 <label htmlFor="item_description">Describe it:</label>
                 <textarea name="item_description" placeholder="Enter description" onChange={this.handleChange}></textarea>
                 </li>

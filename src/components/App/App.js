@@ -7,7 +7,7 @@ import AddNewRestaurant from '../../routes/AddNewRestaurant/AddNewRestaurant';
 import StatsPage from '../../routes/StatsPage/StatsPage';
 import RestaurantListPage from '../../routes/RestaurantListPage/RestaurantListPage';
 import TokenService from '../../services/token-service';
-
+import Image from '../../routes/Image';
 
 class App extends Component {
   state = {
@@ -47,6 +47,10 @@ class App extends Component {
             <Route 
               path={'/myrestaurants'}
               component={RestaurantListPage}
+            />
+            <Route 
+              path={'/image'}
+              component={Image}
             />
           </Switch>
         </main>
