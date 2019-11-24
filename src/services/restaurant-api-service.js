@@ -141,15 +141,22 @@ const RestaurantsApiService = {
     },
     uploadPhoto(file) {
         console.log(file.name);
+        console.log(`${config.API_ENDPOINT}/upload`)
         let form = new FormData();
         form.append('photo_upload', file);
-         fetch(`${config.API_ENDPOINT}/upload`, {
+        return fetch(`${config.API_ENDPOINT}/upload`, {
              method: 'POST',
              headers: {
-                 'content-type': 'multipart/form-data',
+                'authorization': `bearer ${TokenService.getAuthToken()}`
              },
              body: form
          })
+            .then(res => 
+                (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
+            )
+            
     }
 
 

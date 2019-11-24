@@ -79,7 +79,8 @@ export default class AddNewRestaurant extends Component {
                         return {
                             name: itm.name,
                             description: itm.description,
-                            entry_id: res.id
+                            entry_id: res.id,
+                            image: itm.photo
                         }
                     });
                     items.forEach(itm => RestaurantsApiService.insertItem(itm));
@@ -109,22 +110,18 @@ export default class AddNewRestaurant extends Component {
       }
       if (e.target.name === 'photo_upload') {
           const file = e.target.files[0]
-
+          
           RestaurantsApiService.uploadPhoto(file)
-            // .then(res => {
-            //     newItems[targetItemIndex].photo = res
-            //     this.setState({
-            //         items: newItems
-            //     })
-            // })
-            // .catch(err => {
-            //     console.error(err)
-            //     this.setState({ error: err })
-            // })
-        //   newItems[targetItemIndex].photo = e.target.files[0]
-        //   this.setState({
-        //       items: newItems
-        //   })
+            .then(res => {
+                newItems[targetItemIndex].photo = res
+                this.setState({
+                    items: newItems
+                })
+            })
+            .catch(err => {
+                console.error(err)
+                this.setState({ error: err })
+            })
       }
     }
 
