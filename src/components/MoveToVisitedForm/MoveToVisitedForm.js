@@ -35,7 +35,8 @@ class MoveToVisitedForm extends Component {
             return {
               name: itm.name,
               description: itm.description,
-              entry_id: res.id
+              entry_id: res.id,
+              image: itm.photo
             }
           });
           items.forEach(itm => RestaurantsApiService.insertItem(itm))
@@ -64,6 +65,21 @@ class MoveToVisitedForm extends Component {
               items: newItems
           })
       }
+      if (e.target.name === 'photo_upload') {
+        const file = e.target.files[0]
+        
+        RestaurantsApiService.uploadPhoto(file)
+          .then(res => {
+              newItems[targetItemIndex].photo = res
+              this.setState({
+                  items: newItems
+              })
+          })
+          .catch(err => {
+              console.error(err)
+              this.setState({ error: err })
+          })
+      }
     }
 
     renderItems() {
@@ -72,7 +88,8 @@ class MoveToVisitedForm extends Component {
           <li key={index} id={'Item-' + index}>
           <label htmlFor="item_name">Name of item:</label>
           <input type="text" name="item_name" onChange={this.handleChange}></input>
-          <button type="button">Add photo</button>
+          <label htmlFor="photo_upload">Add a photo: </label>
+          <input type="file" id="photo_upload" name="photo_upload" onChange={this.handleChange} ></input>
           <label htmlFor="item_description">Describe it:</label>
           <textarea name="item_description" placeholder="Enter description" onChange={this.handleChange}></textarea>
           </li>
