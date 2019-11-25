@@ -3,6 +3,7 @@ import WishlistItem from '../../components/WishlistItem/WishlistItem';
 import VisitedItem from '../../components/VisitedItem/VisitedItem';
 import { Link } from 'react-router-dom';
 import RestaurantsApiService from '../../services/restaurant-api-service';
+import './RestaurantListPage.css';
 
 
 export default class RestaurantListPage extends Component {
@@ -255,7 +256,7 @@ export default class RestaurantListPage extends Component {
         <h1>{this.props.userName}'s Restaurants</h1>
             </header>
             <section className="lists">
-                <Link to='/addrestaurant'><button type="button">+ Add Restaurant</button></Link>
+                <Link to='/addrestaurant'><button type="button" id="addRestaurant">+ Add Restaurant</button></Link>
                 <div className="wishlist">
                     <h3>Wishlist</h3>
         <button type="button" id="expand" onClick={this.toggleWishListExpand}>{this.state.wishlistExpand ? '-' : '+'}</button>

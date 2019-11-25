@@ -1,0 +1,40 @@
+header {
+    color: #474647;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.lists {
+    padding: 10px;
+}
+
+#addRestaurant {
+    font-size: 1em;
+    background-color: #687D76;
+    padding: 8px;
+    border: 1px solid #687D76;
+    border-radius: 5px;
+    color: #F4F2F3;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.wishlist {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1.2em;
+}
+
+.visited {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1.2em;
+}
+
+#expand {
+    font-size: 1.2em;
+    color: #463849;
+    font-weight: 500;
+}

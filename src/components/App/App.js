@@ -8,6 +8,7 @@ import StatsPage from '../../routes/StatsPage/StatsPage';
 import RestaurantListPage from '../../routes/RestaurantListPage/RestaurantListPage';
 import TokenService from '../../services/token-service';
 import AuthApiService from '../../services/auth-api-service';
+import './App.css';
 
 const EVENT_KEY_DOWN = 'keydown'
 const EVENT_KEY_UP = 'keyup'
@@ -50,6 +51,15 @@ wasCapsLockDeactivated = event => {
 
   handleGetUserName = (user_name) => {
     AuthApiService.setUserName(user_name)
+    this.setState({
+      userName: user_name
+    })
+  }
+
+  handleClearUserName = (x) => {
+    this.setState({
+      userName: x
+    })
   }
 
 
@@ -57,14 +67,14 @@ wasCapsLockDeactivated = event => {
     return (
       <div className='App'>
         <header className='App__header'>
-          <Header handleGetToken={this.handleGetToken} token={this.state.token}/>
+          <Header handleGetToken={this.handleGetToken} token={this.state.token} handleClearUserName={this.handleClearUserName}/>
         </header>
         <main className='App__main'>
           <Switch>
             <Route 
               exact
               path={'/'}
-              render={() => <LandingPage capsLock={this.state.isCapsLockActive}/>}
+              render={(routeProps) => <LandingPage {...routeProps} capsLock={this.state.isCapsLockActive}/>}
             />
             <Route 
               path={'/login'}

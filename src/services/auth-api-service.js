@@ -49,6 +49,9 @@ const AuthApiService = {
     },
     getUserName() {
         return window.sessionStorage.getItem('user_name')
+    },
+    clearUserName() {
+        window.sessionStorage.removeItem('user_name')
     }
 }
 
