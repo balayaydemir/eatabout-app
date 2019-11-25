@@ -140,8 +140,6 @@ const RestaurantsApiService = {
             )
     },
     uploadPhoto(file) {
-        console.log(file.name);
-        console.log(`${config.API_ENDPOINT}/upload`)
         let form = new FormData();
         form.append('photo_upload', file);
         return fetch(`${config.API_ENDPOINT}/upload`, {
@@ -157,6 +155,18 @@ const RestaurantsApiService = {
                     : res.json()
             )
             
+    },
+    getCuisineChartData() {
+        return fetch(`${config.API_ENDPOINT}/cuisines/report`, {
+            headers: {
+                'authorization': `bearer ${TokenService.getAuthToken()}`
+            }
+        })
+            .then(res => 
+                (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
+            )
     }
 
 

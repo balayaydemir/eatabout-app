@@ -8,7 +8,6 @@ export default class AddNewRestaurant extends Component {
     state = {
         visited: false,
         cuisines: [],
-        restaurants: [],
         items: [],
         error: null
     }
@@ -25,12 +24,6 @@ export default class AddNewRestaurant extends Component {
         RestaurantsApiService.getAllCuisines()
             .then(cuisines => {
                 this.setState({ cuisines })
-            })
-            .then(() => {
-                RestaurantsApiService.getAllRestaurants()
-                    .then(restaurants => {
-                        this.setState({ restaurants })
-                    })
             })
             .catch(error => {
                 console.error(error)
