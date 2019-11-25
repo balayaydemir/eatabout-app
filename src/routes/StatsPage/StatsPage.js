@@ -7,7 +7,7 @@ export default class StatsPage extends Component {
         return (
             <>
             <header>
-                <h1>My Stats</h1>
+                <h1>{this.props.userName}'s Stats</h1>
             </header>
             <section className="cuisine_stats">
                 <h3>Cuisine Breakdown</h3>

@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import SignupForm from '../../components/SignupForm/SignupForm';
 
+
 export default class LandingPage extends Component {
+
     onRegistrationSuccess = user => {
         const { history } = this.props;
         history.push('/login')
@@ -38,7 +40,7 @@ export default class LandingPage extends Component {
                 <header>
                     <h3>Ready to Eatabout?</h3>
                 </header>
-                 <SignupForm registrationSuccess={this.onRegistrationSuccess}/>
+                 <SignupForm registrationSuccess={this.onRegistrationSuccess} capsLock={this.props.capsLock}/>
             </section>
             </>
         )

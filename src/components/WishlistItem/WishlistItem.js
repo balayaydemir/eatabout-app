@@ -32,7 +32,7 @@ export default class WishlistItem extends Component {
               <p>{restaurant.description}</p>
               <input type="checkbox" name='visited' checked={this.state.visited} onChange={this.toggleVisited}></input>
               <label htmlFor='visited'>Visited</label>
-              {this.state.visited ? <MoveToVisitedForm restaurant={restaurant} toggleVisited={this.toggleVisited}/> : ''}
+              {this.state.visited ? <MoveToVisitedForm restaurant={restaurant} toggleVisited={this.toggleVisited} onMove={this.props.onMove} /> : ''}
           </div>
       )
     }

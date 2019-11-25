@@ -1,43 +1,15 @@
 import React, { Component } from 'react';
 import AuthApiService from '../../services/auth-api-service';
 
-const EVENT_KEY_DOWN = 'keydown'
-const EVENT_KEY_UP = 'keyup'
-
 export default class SignupForm extends Component {
     static defaultProps = {
         registrationSuccess: () => {}
     }
 
     state = { 
-        error: null, 
-        isCapsLockActive: false
+        error: null
     }
 
-    componentDidMount() {
-        document.addEventListener(EVENT_KEY_DOWN, this.wasCapsLockActivated)
-        document.addEventListener(EVENT_KEY_UP, this.wasCapsLockDeactivated)
-    }
-
-    wasCapsLockActivated = event => {
-        if (
-          event.getModifierState &&
-          event.getModifierState('CapsLock') &&
-          this.state.isCapsLockActive === false
-        ) {
-          this.setState({ isCapsLockActive: true })
-        }
-      }
-    
-    wasCapsLockDeactivated = event => {
-        if (
-          event.getModifierState &&
-          !event.getModifierState('CapsLock') &&
-          this.state.isCapsLockActive === true
-        ) {
-          this.setState({ isCapsLockActive: false })
-        }
-      }
 
     handleSubmit = e => {
         e.preventDefault()
@@ -78,7 +50,7 @@ export default class SignupForm extends Component {
                 <div>
                     <label htmlFor="SignUpForm__password">Password</label>
                     <input type="password" name='password' id='SignUpForm__password' />
-                    {this.state.isCapsLockActive ? <strong>Caps Lock is On!</strong> : ''}
+                     {this.props.capsLock ? <strong>Caps Lock is On!</strong> : ''}
                 </div>
             <button type='submit'>Sign Up</button>
             </form>

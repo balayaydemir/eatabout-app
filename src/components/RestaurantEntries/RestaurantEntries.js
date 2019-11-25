@@ -31,7 +31,6 @@ export default class RestaurantEntries extends Component {
 
     render() {
         const { entry, renderDate } = this.props
-        console.log(entry)
         return (
                 <li>
                   {renderDate(entry.date)}

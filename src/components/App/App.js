@@ -7,15 +7,49 @@ import AddNewRestaurant from '../../routes/AddNewRestaurant/AddNewRestaurant';
 import StatsPage from '../../routes/StatsPage/StatsPage';
 import RestaurantListPage from '../../routes/RestaurantListPage/RestaurantListPage';
 import TokenService from '../../services/token-service';
-import Image from '../../routes/Image';
+import AuthApiService from '../../services/auth-api-service';
+
+const EVENT_KEY_DOWN = 'keydown'
+const EVENT_KEY_UP = 'keyup'
 
 class App extends Component {
   state = {
-    token: TokenService.getAuthToken()
+    token: TokenService.getAuthToken(),
+    userName: AuthApiService.getUserName(),
+    isCapsLockActive: false
+  }
+
+  componentDidMount() {
+    document.addEventListener(EVENT_KEY_DOWN, this.wasCapsLockActivated)
+    document.addEventListener(EVENT_KEY_UP, this.wasCapsLockDeactivated)
+}
+
+wasCapsLockActivated = event => {
+    if (
+      event.getModifierState &&
+      event.getModifierState('CapsLock') &&
+      this.state.isCapsLockActive === false
+    ) {
+      this.setState({ isCapsLockActive: true })
+    }
+  }
+
+wasCapsLockDeactivated = event => {
+    if (
+      event.getModifierState &&
+      !event.getModifierState('CapsLock') &&
+      this.state.isCapsLockActive === true
+    ) {
+      this.setState({ isCapsLockActive: false })
+    }
   }
 
   handleGetToken = (authToken) => {
     this.setState({ token: authToken })
+  }
+
+  handleGetUserName = (user_name) => {
+    AuthApiService.setUserName(user_name)
   }
 
 
@@ -30,11 +64,11 @@ class App extends Component {
             <Route 
               exact
               path={'/'}
-              component={LandingPage}
+              render={() => <LandingPage capsLock={this.state.isCapsLockActive}/>}
             />
             <Route 
               path={'/login'}
-              render={(routeProps) => <LoginPage {...routeProps} handleGetToken={this.handleGetToken}/>}
+              render={(routeProps) => <LoginPage {...routeProps} handleGetToken={this.handleGetToken} handleGetUserName={this.handleGetUserName} capsLock={this.state.isCapsLockActive}/>}
             />
             <Route 
               path={'/addrestaurant'}
@@ -42,15 +76,11 @@ class App extends Component {
             />
             <Route 
               path={'/mystats'}
-              component={StatsPage}
+              render={() => <StatsPage userName={this.state.userName}/>}
             />
             <Route 
               path={'/myrestaurants'}
-              component={RestaurantListPage}
-            />
-            <Route 
-              path={'/image'}
-              component={Image}
+              render={() => <RestaurantListPage userName={this.state.userName}/>}
             />
           </Switch>
         </main>

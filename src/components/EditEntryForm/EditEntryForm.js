@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import RestaurantsApiService from '../../services/restaurant-api-service';
+import swal from 'sweetalert';
+import ItemsEaten from '../../components/ItemsEaten/ItemsEaten';
 
 export default class EditEntryForm extends Component {
     state = {
@@ -7,17 +9,19 @@ export default class EditEntryForm extends Component {
       error: null
     }
 
+    deleteItem = e => {
+      const targetItemId = e.target.closest('li').id;
+      const targetItemIndex = parseInt(targetItemId.charAt(targetItemId.length - 1))
+      let newItems = this.state.items.filter(itm => this.state.items.indexOf(itm) !== targetItemIndex)
+      this.setState({
+        items: newItems
+      })
+    }
+
     renderItems() {
       return this.state.items.map((itm, index) => {
         return (
-          <li key={index} id={'Item-' + index}>
-            <label htmlFor="item_name">Name of item:</label>
-            <input type="text" name="item_name" onChange={this.handleChange}></input>
-            <label htmlFor="photo_upload">Add a photo: </label>
-            <input type="file" id="photo_upload" name="photo_upload" onChange={this.handleChange} ></input>
-            <label htmlFor="item_description">Describe it:</label>
-            <textarea name="item_description" placeholder="Enter description" onChange={this.handleChange}></textarea>
-          </li>
+          <ItemsEaten key={index} index={index} handleChange={this.handleChange} deleteItem={this.deleteItem}/>
         )
       })
     }
@@ -47,14 +51,34 @@ export default class EditEntryForm extends Component {
               this.setState({
                   items: newItems
               })
+              swal({
+                title: 'Done!',
+                text: 'Photo uploaded successfully',
+                icon: 'success',
+                timer: 1500,
+                button: false
+            })
           })
           .catch(err => {
               console.error(err)
               this.setState({ error: err })
+              swal({
+                title: 'Uh oh!',
+                text: err.error,
+                icon: 'error',
+                timer: 4000,
+                button: true
+            })
           })
       }
     }
 
+    deleteItem = () => {
+      let newItems = this.state.items.slice(0, -1)
+      this.setState({
+        items: newItems
+      })
+    }
 
     createItem = (e) => {
       let newItem = { name: '', photo: '', description: '' };
@@ -99,21 +123,37 @@ export default class EditEntryForm extends Component {
             }
           });
           items.forEach(itm => RestaurantsApiService.insertItem(itm))
-          window.location.reload(false)
+          swal({
+            title: 'Done!',
+            text: 'Restaurant has been edited',
+            icon: 'success',
+            timer: 2000,
+            button: false
+        })
+          this.props.onEdit()
         })
         .catch(error => {
           console.error(error)
           this.setState({ error })
+          swal({
+            title: 'Uh oh!',
+            text: error.error,
+            icon: 'error',
+            timer: 4000,
+            button: true
+        })
         })
     }
 
     render() {
+      const { error } = this.state
         return (
             <div className="edit_item">
+              <div className="error">{error ? <p>Something went wrong, try again</p> : ''}</div>
                 <form id="edit_item" onSubmit={this.handleSubmit}>
                   <div className="form_section">
                     <label htmlFor="rating">Change rating:</label>
-                    <input type="radio" value="1" name="rating"></input>
+                    <input type="radio" value="1" name="rating" required></input>
                     <label htmlFor='rating'>1</label>
                     <input type="radio" value="2" name="rating"></input>
                     <label htmlFor='rating'>2</label>
@@ -126,10 +166,11 @@ export default class EditEntryForm extends Component {
                   </div>
                   <div className="form_section">
                     <label htmlFor="visited_date">New visit date:</label>
-                    <input type="date" name="visited_date"></input>
+                    <input type="date" name="visited_date" required></input>
                   </div>
                   <div className="form_section">
                     <label htmlFor="items_ordered">What I ate:</label>
+                    {this.state.items.length ? <div>* Required field</div> : ''}
                   <ul id="items_ordered">
                     {this.renderItems()}
                   </ul>

@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import AuthApiService from '../../services/auth-api-service';
 
-
-const EVENT_KEY_DOWN = 'keydown'
-const EVENT_KEY_UP = 'keyup'
-
 export default class LoginPage extends Component {
     static defaultProps = {
         location: {},
@@ -15,34 +11,9 @@ export default class LoginPage extends Component {
 
 
     state = { 
-        error: null,
-        isCapsLockActive: false
+        error: null
     }
 
-    componentDidMount() {
-        document.addEventListener(EVENT_KEY_DOWN, this.wasCapsLockActivated)
-        document.addEventListener(EVENT_KEY_UP, this.wasCapsLockDeactivated)
-    }
-
-    wasCapsLockActivated = event => {
-        if (
-          event.getModifierState &&
-          event.getModifierState('CapsLock') &&
-          this.state.isCapsLockActive === false
-        ) {
-          this.setState({ isCapsLockActive: true })
-        }
-      }
-    
-    wasCapsLockDeactivated = event => {
-        if (
-          event.getModifierState &&
-          !event.getModifierState('CapsLock') &&
-          this.state.isCapsLockActive === true
-        ) {
-          this.setState({ isCapsLockActive: false })
-        }
-      }
 
     onLoginSuccess = (authToken) => {
         const { location, history } = this.props
@@ -61,6 +32,7 @@ export default class LoginPage extends Component {
             password: password.value,
         })
             .then(res => {
+                this.props.handleGetUserName(user_name.value)
                 user_name.value = ''
                 password.value = ''
                 this.onLoginSuccess(res.authToken)
@@ -89,7 +61,7 @@ export default class LoginPage extends Component {
                         <div className="form_section">
                             <label htmlFor="LoginForm__password">Password:</label>
                             <input type="password" name="password" id="LoginForm__password"></input>
-                            {this.state.isCapsLockActive ? <strong>Caps Lock is On!</strong> : ''}
+                            {this.props.capsLock ? <strong>Caps Lock is On!</strong> : ''}
                         </div>
                         <button type="submit">Log In</button>
                     </form>

@@ -35,6 +35,20 @@ const AuthApiService = {
                 TokenService.saveAuthToken(res.authToken)
                 return res
             })
+    },
+    setUserName(user_name) {
+        return fetch(`${config.API_ENDPOINT}/auth/${user_name}`)
+            .then(res =>
+                (!res.ok)
+                    ? res.json().then(e => Promise.reject(e))
+                    : res.json()
+            )
+            .then(res => {
+                window.sessionStorage.setItem('user_name', res.full_name.split(' ')[0])
+            })
+    },
+    getUserName() {
+        return window.sessionStorage.getItem('user_name')
     }
 }
 

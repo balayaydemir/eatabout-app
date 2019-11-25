@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import RestaurantsApiService from '../../services/restaurant-api-service';
+import swal from 'sweetalert';
+import ItemsEaten from '../../components/ItemsEaten/ItemsEaten';
 
 
 export default class AddNewRestaurant extends Component {
@@ -10,6 +12,7 @@ export default class AddNewRestaurant extends Component {
         items: [],
         error: null
     }
+
 
     toggleVisited = () => {
         this.setState({
@@ -66,6 +69,13 @@ export default class AddNewRestaurant extends Component {
                     res = await RestaurantsApiService.addNewUserRestaurant(newUserRestaurantBody)
                 }
                 if(!this.state.visited) {
+                    swal({
+                        title: 'Done!',
+                        text: 'Wishlist restaurant has been added',
+                        icon: 'success',
+                        timer: 2000,
+                        button: false
+                    })
                     this.props.history.goBack();
                     return 
                 }
@@ -84,11 +94,25 @@ export default class AddNewRestaurant extends Component {
                         }
                     });
                     items.forEach(itm => RestaurantsApiService.insertItem(itm));
+                    swal({
+                        title: 'Done!',
+                        text: 'Visited restaurant has been added',
+                        icon: 'success',
+                        timer: 2000,
+                        button: false
+                    })
                     this.props.history.goBack();
             }
             catch(error) {
                 console.error(error)
                 this.setState({ error })
+                swal({
+                    title: 'Uh oh!',
+                    text: error.error,
+                    icon: 'error',
+                    timer: 4000,
+                    button: true
+                })
             }
     }
 
@@ -117,26 +141,42 @@ export default class AddNewRestaurant extends Component {
                 this.setState({
                     items: newItems
                 })
+                swal({
+                    title: 'Done!',
+                    text: 'Photo uploaded successfully',
+                    icon: 'success',
+                    timer: 1500,
+                    button: false
+                })
             })
             .catch(err => {
                 console.error(err)
                 this.setState({ error: err })
+                swal({
+                    title: 'Uh oh!',
+                    text: err.error,
+                    icon: 'error',
+                    timer: 4000,
+                    button: true
+                })
             })
       }
     }
+
+    deleteItem = e => {
+        const targetItemId = e.target.closest('li').id;
+        const targetItemIndex = parseInt(targetItemId.charAt(targetItemId.length - 1))
+        let newItems = this.state.items.filter(itm => this.state.items.indexOf(itm) !== targetItemIndex)
+        this.setState({
+          items: newItems
+        })
+      }
 
 
     renderItems() {
         return this.state.items.map((itm, index) => {
             return (
-                <li key={index} id={'Item-' + index}>
-                <label htmlFor="item_name">Name of item:</label>
-                <input type="text" name="item_name" onChange={this.handleChange}></input>
-                <label htmlFor="photo_upload">Add a photo: </label>
-                <input type="file" id="photo_upload" name="photo_upload" onChange={this.handleChange} ></input>
-                <label htmlFor="item_description">Describe it:</label>
-                <textarea name="item_description" placeholder="Enter description" onChange={this.handleChange}></textarea>
-                </li>
+                <ItemsEaten key={index} index={index} handleChange={this.handleChange} deleteItem={this.deleteItem}/>
             )
         })
     }
@@ -153,7 +193,7 @@ export default class AddNewRestaurant extends Component {
             <>
             <div className="form_section js_visited">
                 <label htmlFor="rating">Rate this restaurant:</label>
-                <input type="radio" value="1" name="rating"></input>
+                <input type="radio" value="1" name="rating" required></input>
                 <label htmlFor="rating">1</label>
                 <input type="radio" value="2" name="rating"></input>
                 <label htmlFor="rating">2</label>
@@ -170,15 +210,17 @@ export default class AddNewRestaurant extends Component {
                     </div>
             <div className="form_section js_visited">
                 <label htmlFor="visited_date">Visited on:</label>
-                <input type="date" name="visited_date"></input>
+                <input type="date" name="visited_date" required></input>
             </div>
             </>
         )
     }
     render() {
+        const { error } = this.state
         return (
            <section>
                <header>New Restaurant</header>
+               <div className="error">{error ? <p>Something went wrong, try again</p> : ''}</div>
                <form id="add_restaurant" onSubmit={this.handleSubmit}>
                     <div className="form_section">
                         <input type="radio" value="wishlist" id="check_wishlist" name="entry_type" checked={!this.state.visited} onChange={this.toggleVisited}></input>
@@ -188,15 +230,15 @@ export default class AddNewRestaurant extends Component {
                     </div>
                     <div className="form_section">
                         <label htmlFor="restaurant_name">Name of restaurant:</label>
-                        <input type="text" name="restaurant_name"></input>
+                        <input type="text" name="restaurant_name" required></input>
                     </div>
                     <div className="form_section">
                         <label htmlFor="restaurant_url">Website:</label>
-                        <input type="url" name="restaurant_url" placeholder="http://"></input>
+                        <input type="url" name="restaurant_url" placeholder="http://" required></input>
                      </div>
                     <div className="form_section">
                         <label htmlFor="cuisine">Type of cuisine:</label>
-                        <select name="cuisine">
+                        <select name="cuisine" required>
                             {this.state.cuisines.map(cuisine => {
                                 return (
                                 <option key={cuisine.id}>{cuisine.cuisine_name}</option>
@@ -206,14 +248,15 @@ export default class AddNewRestaurant extends Component {
                     </div>
                     <div className="form_section">
                         <label htmlFor="restaurant_city">City:</label>
-                        <input type="text" name="restaurant_city"></input>
+                        <input type="text" name="restaurant_city" required></input>
                         <label htmlFor="restaurant_state">State:</label>
-                        <input type="text" name="restaurant_state"></input>
+                        <input type="text" name="restaurant_state" required></input>
                     </div>
                     {this.state.visited ? this.renderVisitedForm() : ''}
                     {this.state.visited ?  
                     <div className="form_section js_visited">
                         <label htmlFor="items_ordered">What I ate:</label>
+                        {this.state.items.length ? <div>* Required field</div> : ''}
                         <ul id="items_ordered">
                             {this.renderItems()}
                         </ul>

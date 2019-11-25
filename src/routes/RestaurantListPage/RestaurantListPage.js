@@ -4,6 +4,7 @@ import VisitedItem from '../../components/VisitedItem/VisitedItem';
 import { Link } from 'react-router-dom';
 import RestaurantsApiService from '../../services/restaurant-api-service';
 
+
 export default class RestaurantListPage extends Component {
     state = { 
         error: null,
@@ -22,6 +23,50 @@ export default class RestaurantListPage extends Component {
 
     componentDidMount() {
         this.setState({ error: null })
+        RestaurantsApiService.getUserRestaurants()
+            .then(restaurants => {
+                this.setState({
+                    restaurantsList: restaurants
+                })
+            })
+            .then(() => {
+                RestaurantsApiService.getAllCuisines()
+                    .then(cuisines => {
+                        this.setState({ cuisines })
+                    })
+            })
+            .catch(error => {
+                console.error(error)
+                this.setState({ error })
+            })
+    }
+
+    onEdit = () => {
+        this.setState({
+            visitedExpand: !this.state.visitedExpand
+        })
+        RestaurantsApiService.getUserRestaurants()
+            .then(restaurants => {
+                this.setState({
+                    restaurantsList: restaurants
+                })
+            })
+            .then(() => {
+                RestaurantsApiService.getAllCuisines()
+                    .then(cuisines => {
+                        this.setState({ cuisines })
+                    })
+            })
+            .catch(error => {
+                console.error(error)
+                this.setState({ error })
+            })
+    }
+
+    onMove = () => {
+        this.setState({
+            wishlistExpand: !this.state.wishlistExpand
+        })
         RestaurantsApiService.getUserRestaurants()
             .then(restaurants => {
                 this.setState({
@@ -158,7 +203,7 @@ export default class RestaurantListPage extends Component {
             const filter = this.state.filterCuisineWishlist.toLowerCase()
             restaurants = restaurants.filter(itm => itm.restaurant.cuisine_name.toLowerCase() === filter)
         }
-        return restaurants.map(restaurant => <WishlistItem key={restaurant.id} restaurant={restaurant} onDelete={this.onDelete}/>)
+        return restaurants.map(restaurant => <WishlistItem key={restaurant.id} restaurant={restaurant} onDelete={this.onDelete} onMove={this.onMove}/>)
     }
 
     renderVisitedRestaurants() {
@@ -175,7 +220,7 @@ export default class RestaurantListPage extends Component {
             const filter = this.state.filterRating
             restaurants = restaurants.filter(itm => itm.rating >= filter)
         }
-        return restaurants.map(restaurant => <VisitedItem key={restaurant.id} restaurant={restaurant} onDelete={this.onDelete}/>)
+        return restaurants.map(restaurant => <VisitedItem key={restaurant.id} restaurant={restaurant} onDelete={this.onDelete} onEdit={this.onEdit}/>)
     }
 
     renderWishlist(error) {
@@ -207,7 +252,7 @@ export default class RestaurantListPage extends Component {
         return (
             <>
             <header>
-                <h1>My Restaurants</h1>
+        <h1>{this.props.userName}'s Restaurants</h1>
             </header>
             <section className="lists">
                 <Link to='/addrestaurant'><button type="button">+ Add Restaurant</button></Link>

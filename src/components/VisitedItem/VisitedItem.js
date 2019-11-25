@@ -30,7 +30,7 @@ export default class VisitedItem extends Component {
     }
 
     renderEntries() {
-      return this.state.entries.map(entry => <RestaurantEntries key={entry.id} entry={entry} renderDate={this.renderDate}/>)
+      return this.state.entries.map(entry => <RestaurantEntries key={entry.id} entry={entry} renderDate={this.renderDate} />)
     }
 
     handleDelete = () => {
@@ -56,7 +56,7 @@ export default class VisitedItem extends Component {
         <ul className="restaurant_entries">
           {error ? <p>There was an error, try again</p> : this.renderEntries()}
         </ul>
-        {this.state.edit ? <EditEntryForm toggleEdit={this.toggleEdit} restaurant={this.props.restaurant}/> : ''}
+        {this.state.edit ? <EditEntryForm toggleEdit={this.toggleEdit} restaurant={this.props.restaurant} onEdit={this.props.onEdit}/> : ''}
         </div>
       )
     }
