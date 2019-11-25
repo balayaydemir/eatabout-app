@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import RestaurantsApiService from '../../services/restaurant-api-service';
 import swal from 'sweetalert';
 import ItemsEaten from '../../components/ItemsEaten/ItemsEaten';
+import './MoveToVisitedForm.css';
+import StarRatingComponent from 'react-star-rating-component';
+
 
 
 
@@ -9,16 +12,17 @@ class MoveToVisitedForm extends Component {
 
     state = { 
       error: null,
-      items: []
+      items: [], 
+      rating: 1
     }
 
     moveToVisited = e => {
       e.preventDefault();
       const { restaurant } = this.props
-      const { rating, visited_date, notes }  = e.target
+      const { visited_date, notes }  = e.target
       const body = {
         visited: true,
-        rating: rating.value,
+        rating: this.state.rating,
         date_visited: visited_date.value,
         description: notes.value
       }
@@ -63,6 +67,12 @@ class MoveToVisitedForm extends Component {
         })
         })
 
+    }
+
+    ratingChange = (nextValue, prevValue, name) => {
+      this.setState({
+        rating: nextValue
+      })
     }
 
     handleChange = e => {
@@ -147,35 +157,33 @@ class MoveToVisitedForm extends Component {
     }
 
     render() {
-      const { error } = this.state
+      const { error, rating } = this.state
         return (
-            <div className="move_item">
+            <div id="move_item_container">
               <div className="error">{error ? <p>Something went wrong, try again</p> : ''}</div>
                 <form id="move_item" onSubmit={this.moveToVisited}>
                   <div className="form_section">
-                    <label htmlFor="rating">Rate this restaurant:</label>
-                    <input type="radio" value="1" name="rating" required></input>
-                    <label htmlFor='rating'>1</label>
-                    <input type="radio" value="2" name="rating"></input>
-                    <label htmlFor='rating'>2</label>
-                    <input type="radio" value="3" name="rating"></input>
-                    <label htmlFor='rating'>3</label>
-                    <input type="radio" value="4" name="rating"></input>
-                    <label htmlFor='rating'>4</label>
-                    <input type="radio" value="5" name="rating"></input>
-                    <label htmlFor='rating'>5</label>
+                    <label htmlFor="rating">Rate this restaurant: </label>
+                    <StarRatingComponent 
+                      name="rating"
+                      starCount={5}
+                      value={rating}
+                      onStarClick={this.ratingChange.bind(this)}
+                      starColor={'#daa520'}
+                      emptyStarColor={'#474647'}
+                    />
                   </div>
                   <div className="form_section">
-                    <label htmlFor="visited_date">Visited on:</label>
+                    <label htmlFor="visited_date">Visited on: </label>
                     <input type="date" name="visited_date" required></input>
                   </div>
-                  <div className="form_section">
+                  <div id="eaten">
                     <label htmlFor="items_ordered">What I ate:</label>
-                    {this.state.items.length ? <div>* Required field</div> : ''}
+                    {this.state.items.length ? <div id="required">* Required field</div> : ''}
                   <ul id="items_ordered">
                     {this.renderItems()}
                   </ul>
-                  <button type="button" onClick={this.createItem}>{!this.state.items.length ? 'Add an item' : 'Add another item'}</button>
+                  <button type="button" className="add_another" onClick={this.createItem}>{!this.state.items.length ? 'Add an item' : 'Add another item'}</button>
                   </div>
                   <div className="form_section">
                     <label htmlFor="notes">Describe this experience:</label>
@@ -183,7 +191,7 @@ class MoveToVisitedForm extends Component {
                   </div>
                   <div className="form_section">
                     <button type="button" id="cancel_form" onClick={this.handleCancel}>Cancel</button>
-                    <button type="submit">Done</button>
+                    <button type="submit" id="submit">Done</button>
                   </div>
                 </form>
             </div>

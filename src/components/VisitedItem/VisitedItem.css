@@ -1,0 +1,41 @@
+.display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 0.8em;
+    margin-top: 5px;
+    border: 1px solid #474647;
+    padding: 5px;
+}
+
+#delete_item {
+    border: 1px solid #474647;
+    border-radius: 5px;
+    background-color: #F4F2F3;
+    cursor: pointer;
+}
+
+.display #expand {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+#edit {
+    border: 1px solid #474647;
+    border-radius: 5px;
+    background-color: #F4F2F3;
+    cursor: pointer;
+    color: #474647;
+    font-size: 0.8em;
+}
+
+#expanded_info {
+    display: flex;
+    flex-direction: column;
+}
+
+#expanded_buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

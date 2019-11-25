@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import EditEntryForm from '../EditEntryForm/EditEntryForm';
 import RestaurantsApiService from '../../services/restaurant-api-service';
 import RestaurantEntries from '../RestaurantEntries/RestaurantEntries';
+import './VisitedItem.css'
 
 export default class VisitedItem extends Component {
     state = {
@@ -45,12 +46,16 @@ export default class VisitedItem extends Component {
 
     renderExpanded(restaurant, error) {
       return (
-        <div className="expanded">
-        <div className="expanded_buttons">
-         <span>Last visited: {this.renderDate(restaurant.date_visited)}</span>
-        <a href={restaurant.restaurant.website} className="button">Go to website</a>
-        <span>{restaurant.restaurant.cuisine_name}</span>
-        <button type="button" onClick={this.toggleEdit}>Edit</button>
+      <div className="expanded">
+        <div id="expanded_info">
+        <span>Last visited: {this.renderDate(restaurant.date_visited)}</span>
+          <span>{restaurant.restaurant.cuisine_name}</span>
+          <span>{restaurant.rating} &#9734;</span>
+          </div>
+        <div id="expanded_buttons">
+        <a href={restaurant.restaurant.website}><button id="website">Go to website</button></a>
+        <button type="button" id="edit" onClick={this.toggleEdit}>Edit</button>
+        <button type="button" id="delete_item" onClick={this.handleDelete}>Delete</button>
         </div>
         <p>{restaurant.description}</p>
         <ul className="restaurant_entries">
@@ -76,9 +81,7 @@ export default class VisitedItem extends Component {
             <li>
               <div className="display">
               <span>{restaurant.restaurant.name}</span>
-              <span>{restaurant.rating} stars</span>
-              <span>{restaurant.restaurant.city}</span>
-              <button type="button" id="delete_item" onClick={this.handleDelete}>Delete</button>
+              <span>{restaurant.restaurant.city}, {restaurant.restaurant.state}</span>
               <button type="button" id="expand" onClick={this.toggleExpanded}>{this.state.expanded ? '-' : '+'}</button>
               </div>
               {this.state.expanded ? this.renderExpanded(restaurant, error) : ''}

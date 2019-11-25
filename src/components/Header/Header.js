@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import TokenService from '../../services/token-service';
 import AuthApiService from '../../services/auth-api-service'; 
+import HamburgerMenu from 'react-hamburger-menu';
 import './Header.css'
 
 
@@ -66,8 +67,15 @@ export default class Header extends Component {
                         Eatabout Logo
                     </Link>
                 </h1>
-                <label htmlFor="hamburger">&#9776;</label>
-                <input type="checkbox" id="hamburger" onClick={this.onOpen} />
+                <div id="hamburger">
+                <HamburgerMenu 
+                    isOpen={this.state.open}
+                    menuClicked={this.onOpen.bind(this)}
+                    width={21}
+                    height={18}
+                    animationDuration={0.5}
+                />
+                </div>
                 {this.props.token ? this.renderLogoutLink() : this.renderLoginLink()}
             </nav>
         )

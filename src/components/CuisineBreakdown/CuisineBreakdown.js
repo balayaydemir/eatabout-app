@@ -21,7 +21,7 @@ export default class CuisineBreakdown extends Component {
             .then(cuisines => {
                 const labels = cuisines.map(cuisine => cuisine.cuisine_name)
                 const data = cuisines.map(cuisine => cuisine.count)
-                const backgroundColors = randomColor({ count: data.length, hue: 'blue' });
+                const backgroundColors = randomColor({ count: data.length, hue: 'random', luminosity: 'dark' });
                 const newDatasets = this.state.datasets.slice()
                 newDatasets[0].data = data
                 newDatasets[0].backgroundColor = backgroundColors

@@ -1,0 +1,33 @@
+.item_eaten {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #474647;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px 5px 0 5px;
+}
+
+.item_eaten div {
+    margin: 5px 0 5px 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+} 
+
+#photo {
+    display: inline-block;
+    text-align: center;
+}
+
+.item_eaten input {
+    border: 1px solid #474647;
+}
+
+#cancel_item {
+    border: 1px solid #474647;
+    border-radius: 5px;
+    background-color: #F4F2F3;
+    cursor: pointer;
+    color: #474647;
+    font-size: 0.8em;
+}

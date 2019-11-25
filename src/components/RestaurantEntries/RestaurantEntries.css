@@ -8,3 +8,35 @@ img {
 img:hover {
   box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
+
+#date_expand {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#entry_items {
+  text-align: center;
+}
+
+#name_photo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+#itm_name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#food_entry {
+  border: 1px solid #474647;
+  border-radius: 5px;
+}
+
+#add_restaurant input {
+  border: 1px solid #474647;
+}

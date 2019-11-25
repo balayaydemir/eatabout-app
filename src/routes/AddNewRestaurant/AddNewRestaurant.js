@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import RestaurantsApiService from '../../services/restaurant-api-service';
 import swal from 'sweetalert';
 import ItemsEaten from '../../components/ItemsEaten/ItemsEaten';
+import './AddNewRestaurant.css';
+import StarRatingComponent from 'react-star-rating-component';
 
 
 export default class AddNewRestaurant extends Component {
@@ -9,6 +11,7 @@ export default class AddNewRestaurant extends Component {
         visited: false,
         cuisines: [],
         items: [],
+        rating: null,
         error: null
     }
 
@@ -18,6 +21,12 @@ export default class AddNewRestaurant extends Component {
             visited: !this.state.visited
         })
     }
+
+    ratingChange = (nextValue, prevValue, name) => {
+        this.setState({
+          rating: nextValue
+        })
+      }
 
     componentDidMount() {
         this.setState({ error: null })
@@ -34,7 +43,7 @@ export default class AddNewRestaurant extends Component {
     
     handleSubmit = async e => {
         e.preventDefault()
-            const { restaurant_name, restaurant_url, cuisine, restaurant_state, restaurant_city, rating, notes, visited_date } = e.target
+            const { restaurant_name, restaurant_url, cuisine, restaurant_state, restaurant_city, notes, visited_date } = e.target
             const cuisineId = this.state.cuisines.find(itm => itm.cuisine_name === cuisine.value).id
             const newRestaurantBody = {
                 name: restaurant_name.value, 
@@ -55,7 +64,7 @@ export default class AddNewRestaurant extends Component {
                     const newUserRestaurantBody = {
                         visited: this.state.visited,
                         restaurant_id: res.id,
-                        rating: rating.value, 
+                        rating: this.state.rating,
                         description: notes.value,
                         date_visited: visited_date.value
                     }
@@ -181,12 +190,20 @@ export default class AddNewRestaurant extends Component {
         })
     }
     
-    renderVisitedForm() {
+    renderVisitedForm(rating) {
         return (
             <>
             <div className="form_section js_visited">
-                <label htmlFor="rating">Rate this restaurant:</label>
-                <input type="radio" value="1" name="rating" required></input>
+                <label htmlFor="rating">Rate this restaurant: </label>
+                <StarRatingComponent 
+                      name="rating"
+                      starCount={5}
+                      value={rating}
+                      onStarClick={this.ratingChange.bind(this)}
+                      starColor={'#daa520'}
+                      emptyStarColor={'#474647'}
+                    />
+                {/* <input type="radio" value="1" name="rating" required></input>
                 <label htmlFor="rating">1</label>
                 <input type="radio" value="2" name="rating"></input>
                 <label htmlFor="rating">2</label>
@@ -195,43 +212,43 @@ export default class AddNewRestaurant extends Component {
                 <input type="radio" value="4" name="rating"></input>
                 <label htmlFor="rating">4</label>                        
                 <input type="radio" value="5" name="rating"></input>
-                <label htmlFor="rating">5</label>
+                <label htmlFor="rating">5</label> */}
             </div>
             <div className="form_section">
-                        <label htmlFor="notes">Description:</label>
+                        <label htmlFor="notes">Description: </label>
                         <textarea name="notes" placeholder="Enter details"></textarea>
                     </div>
             <div className="form_section js_visited">
-                <label htmlFor="visited_date">Visited on:</label>
+                <label htmlFor="visited_date">Visited on: </label>
                 <input type="date" name="visited_date" required></input>
             </div>
             </>
         )
     }
     render() {
-        const { error } = this.state
+        const { error, rating} = this.state
         return (
-           <section>
-               <header>New Restaurant</header>
+           <section id="addnew">
+               <header><h2>New Restaurant</h2></header>
                <div className="error">{error ? <p>Something went wrong, try again</p> : ''}</div>
                <form id="add_restaurant" onSubmit={this.handleSubmit}>
-                    <div className="form_section">
+                    <div className="radio-toolbar">
                         <input type="radio" value="wishlist" id="check_wishlist" name="entry_type" checked={!this.state.visited} onChange={this.toggleVisited}></input>
                         <label htmlFor="check_wishlist">Wishlist</label>
                         <input type="radio" value="visited" id="check_visited" name="entry_type" checked={this.state.visited} onChange={this.toggleVisited}></input>
                         <label htmlFor="check_visited">Visited</label>
                     </div>
                     <div className="form_section">
-                        <label htmlFor="restaurant_name">Name of restaurant:</label>
+                        <label htmlFor="restaurant_name">Name of restaurant: </label>
                         <input type="text" name="restaurant_name" required></input>
                     </div>
                     <div className="form_section">
-                        <label htmlFor="restaurant_url">Website:</label>
+                        <label htmlFor="restaurant_url">Website: </label>
                         <input type="url" name="restaurant_url" placeholder="http://" required></input>
                      </div>
                     <div className="form_section">
-                        <label htmlFor="cuisine">Type of cuisine:</label>
-                        <select name="cuisine" required>
+                        <label htmlFor="cuisine">Type of cuisine: </label>
+                        <select name="cuisine" id="cuisine" required>
                             {this.state.cuisines.map(cuisine => {
                                 return (
                                 <option key={cuisine.id}>{cuisine.cuisine_name}</option>
@@ -239,26 +256,26 @@ export default class AddNewRestaurant extends Component {
                             })}
                         </select>
                     </div>
-                    <div className="form_section">
-                        <label htmlFor="restaurant_city">City:</label>
+                    <div id="city_state">
+                        <label htmlFor="restaurant_city">City: </label>
                         <input type="text" name="restaurant_city" required></input>
-                        <label htmlFor="restaurant_state">State:</label>
+                        <label htmlFor="restaurant_state">State: </label>
                         <input type="text" name="restaurant_state" required></input>
                     </div>
-                    {this.state.visited ? this.renderVisitedForm() : ''}
+                    {this.state.visited ? this.renderVisitedForm(rating) : ''}
                     {this.state.visited ?  
-                    <div className="form_section js_visited">
-                        <label htmlFor="items_ordered">What I ate:</label>
-                        {this.state.items.length ? <div>* Required field</div> : ''}
+                    <div id="visited">
+                        <label htmlFor="items_ordered">What I ate: </label>
+                        {this.state.items.length ? <div id="required">* Required field</div> : ''}
                         <ul id="items_ordered">
                             {this.renderItems()}
                         </ul>
-                        <button type="button" onClick={this.createItem}>{!this.state.items.length ? 'Add an item' : 'Add another item'}</button>
+                        <button type="button" className="add_another" onClick={this.createItem}>{!this.state.items.length ? 'Add an item' : 'Add another item'}</button>
                      </div> 
                      : ''}
                     <div className="form_section">
                         <button type="button" id="cancel_form" onClick={this.props.history.goBack}>Cancel</button>
-                        <button type="submit">Add</button>
+                        <button type="submit" id="submit">Submit</button>
                     </div>
                 </form>
            </section> 

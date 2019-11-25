@@ -1,0 +1,52 @@
+.display {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 1em;
+    margin-top: 5px;
+    border: 1px solid #474647;
+    padding: 5px;
+}
+
+#delete_item {
+    border: 1px solid #474647;
+    border-radius: 5px;
+    background-color: #F4F2F3;
+    cursor: pointer;
+    font-size: 0.8em;
+    color: #474647;
+}
+
+.display #expand {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.expanded {
+    padding: 5px;
+    color: #474647;
+}
+
+.expanded_info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 5px 0 5px 0;
+    font-size: 1em;
+}
+
+#website {
+    border: 1px solid #474647;
+    border-radius: 5px;
+    background-color: #F4F2F3;
+    cursor: pointer;
+    font-size: 0.8em;
+    color: #474647;
+}
+
+.move {
+    text-align: center;
+    margin-top: 5px;
+}
+
+
