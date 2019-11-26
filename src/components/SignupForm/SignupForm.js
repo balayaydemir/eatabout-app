@@ -4,10 +4,10 @@ import './SignupForm.css';
 
 export default class SignupForm extends Component {
     static defaultProps = {
-        registrationSuccess: () => {}
+        registrationSuccess: () => { }
     }
 
-    state = { 
+    state = {
         error: null
     }
 
@@ -51,9 +51,9 @@ export default class SignupForm extends Component {
                 <div>
                     <label htmlFor="SignUpForm__password">Password: </label>
                     <input type="password" name='password' id='SignUpForm__password' />
-                     {this.props.capsLock ? <strong>Caps Lock is On!</strong> : ''}
+                    {this.props.capsLock ? <strong>Caps Lock is On!</strong> : ''}
                 </div>
-            <button type='submit' className="submit">Sign Up</button>
+                <button type='submit' className="submit">Sign Up</button>
             </form>
         )
     }

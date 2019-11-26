@@ -6,7 +6,7 @@ import './RestaurantEntries.css';
 export default class RestaurantEntries extends Component {
 
     state = {
-        expanded: false, 
+        expanded: false,
     }
 
 
@@ -15,12 +15,12 @@ export default class RestaurantEntries extends Component {
             return (
                 <li id="food_entry" key={itm.id}>
                     <div id="name_photo">
-                    <div id="itm_name">
-                    <span>{itm.name}</span>
-                    </div>
-                    <a href={`${itm.image}`} target="_blank" rel="noopener noreferrer">
-                        <img src={`${itm.image}`} alt="food"></img>
-                    </a>
+                        <div id="itm_name">
+                            <span>{itm.name}</span>
+                        </div>
+                        <a href={`${itm.image}`} target="_blank" rel="noopener noreferrer">
+                            <img src={`${itm.image}`} alt="food"></img>
+                        </a>
                     </div>
                     <p>{itm.description}</p>
                 </li>
@@ -37,15 +37,15 @@ export default class RestaurantEntries extends Component {
     render() {
         const { entry, renderDate } = this.props
         return (
-                <li id="restaurant_entry">
+            <li id="restaurant_entry">
                 <div id="date_expand">
-                  <span>{renderDate(entry.date)}</span>
-                <button type="button" id="expand" onClick={this.toggleExpanded}>{this.state.expanded ? '-' : '+'}</button>
+                    <span>{renderDate(entry.date)}</span>
+                    <button type="button" id="expand" onClick={this.toggleExpanded}>{this.state.expanded ? '-' : '+'}</button>
                 </div>
-                  <ul id="entry_items">
+                <ul id="entry_items">
                     {this.state.expanded ? this.renderItems() : ''}
-                  </ul>
-                </li>
+                </ul>
+            </li>
         )
     }
 }

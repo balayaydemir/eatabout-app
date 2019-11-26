@@ -6,12 +6,12 @@ export default class LoginPage extends Component {
     static defaultProps = {
         location: {},
         history: {
-          push: () => {},
+            push: () => { },
         },
     }
 
 
-    state = { 
+    state = {
         error: null
     }
 

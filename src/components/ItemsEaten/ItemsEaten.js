@@ -6,19 +6,19 @@ export default class ItemsEaten extends Component {
         return (
             <li className="item_eaten" id={'Item-' + this.props.index}>
                 <div>
-                <label htmlFor="item_name">* Name of item: </label>
-                <input type="text" name="item_name" onChange={this.props.handleChange}></input>
+                    <label htmlFor="item_name">* Name of item: </label>
+                    <input type="text" name="item_name" onChange={this.props.handleChange}></input>
                 </div>
                 <div id="photo">
-                <label htmlFor="photo_upload">Add a photo: </label>
-                <input type="file" id="photo_upload" name="photo_upload" onChange={this.props.handleChange} ></input>
+                    <label htmlFor="photo_upload">Add a photo: </label>
+                    <input type="file" id="photo_upload" name="photo_upload" onChange={this.props.handleChange} ></input>
                 </div>
                 <div>
-                <label htmlFor="item_description">Describe it: </label>
-                <textarea name="item_description" placeholder="Enter description" onChange={this.props.handleChange}></textarea>
+                    <label htmlFor="item_description">Describe it: </label>
+                    <textarea name="item_description" placeholder="Enter description" onChange={this.props.handleChange}></textarea>
                 </div>
                 <div>
-                <button type="button" id="cancel_item" onClick={this.props.deleteItem}>Cancel</button>
+                    <button type="button" id="cancel_item" onClick={this.props.deleteItem}>Cancel</button>
                 </div>
             </li>
         )

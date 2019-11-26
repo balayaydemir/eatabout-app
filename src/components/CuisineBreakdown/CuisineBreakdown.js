@@ -21,7 +21,7 @@ export default class CuisineBreakdown extends Component {
             .then(cuisines => {
                 const labels = cuisines.map(cuisine => cuisine.cuisine_name)
                 const data = cuisines.map(cuisine => cuisine.count)
-                const backgroundColors = randomColor({ count: data.length, hue: 'random', luminosity: 'dark' });
+                const backgroundColors = randomColor({ count: data.length, hue: 'random' });
                 const newDatasets = this.state.datasets.slice()
                 newDatasets[0].data = data
                 newDatasets[0].backgroundColor = backgroundColors
@@ -35,10 +35,10 @@ export default class CuisineBreakdown extends Component {
     render() {
         return (
             <div>
-                <Pie 
+                <Pie
                     data={this.state}
                     options={{
-                        legend:{
+                        legend: {
                             display: true,
                             position: 'right'
                         }

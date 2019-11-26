@@ -6,12 +6,12 @@ export default class Demo extends Component {
     static defaultProps = {
         location: {},
         history: {
-          push: () => {},
+            push: () => { },
         },
     }
 
 
-    state = { 
+    state = {
         error: null
     }
 
@@ -53,9 +53,6 @@ export default class Demo extends Component {
                     <header>
                         <h2>Eatabout Demo</h2>
                         <div id="demo_underline"></div>
-                        <p>Login with the following:</p>
-                        <p>Username: Eatabout_Demo</p>
-                        <p>Password: Password1!</p>
                     </header>
                     <form className="LoginForm" onSubmit={this.handleSubmitJwtAuth}>
                         <div role='alert'>
@@ -63,11 +60,11 @@ export default class Demo extends Component {
                         </div>
                         <div className="form_section">
                             <label htmlFor="LoginForm__user_name">Username: </label>
-                            <input type="text" name="user_name" id="LoginForm__user_name"></input>
+                            <input type="text" name="user_name" id="LoginForm__user_name" value="Eatabout_Demo"></input>
                         </div>
                         <div className="form_section">
                             <label htmlFor="LoginForm__password">Password: </label>
-                            <input type="password" name="password" id="LoginForm__password"></input>
+                            <input type="password" name="password" id="LoginForm__password" value="Password1!"></input>
                             {this.props.capsLock ? <strong>Caps Lock is On!</strong> : ''}
                         </div>
                         <button type="submit" className="submit">Log In</button>

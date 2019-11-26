@@ -13,14 +13,20 @@
     font-size: 1.1em;
 }
 
-.hidden {
-    display: none;
-    
+.LandingPage__section .hidden {
+
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: opacity 0.3s ease-out, max-height 0.3s ease-out;
+
 }
 
 .LandingPage__section:hover .hidden {
-    display: block;
-    transition-timing-function: cubic-bezier(0,0,1,1)
+
+   max-height: 100%;
+   opacity: 1;
+   transition: opacity 0.3s ease-in, max-height 0.3s ease-in;
 }
 
 #underline_header {

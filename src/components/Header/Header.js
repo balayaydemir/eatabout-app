@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import TokenService from '../../services/token-service';
-import AuthApiService from '../../services/auth-api-service'; 
+import AuthApiService from '../../services/auth-api-service';
 import HamburgerMenu from 'react-hamburger-menu';
 import './Header.css'
 
@@ -31,12 +31,12 @@ export default class Header extends Component {
         return (
             <ul className='Header__not-logged-in' onClick={this.onOpen}>
                 <Link
-                  to='/login'>
-                  <li>Log In</li>
+                    to='/login'>
+                    <li>Log In</li>
                 </Link>
                 <Link
-                  to='/demo'>
-                  <li>Demo</li>
+                    to='/demo'>
+                    <li>Demo</li>
                 </Link>
             </ul>
         )
@@ -46,9 +46,9 @@ export default class Header extends Component {
             <ul className='Header__logged-in' onClick={this.onOpen}>
                 <Link
                     to='/myrestaurants'>
-                    <li>My Restaurants</li> 
+                    <li>My Restaurants</li>
                 </Link>
-                <Link 
+                <Link
                     to='/mystats'>
                     <li>My Stats</li>
                 </Link>
@@ -61,24 +61,24 @@ export default class Header extends Component {
         )
     }
 
-    
+
     render() {
         const openClass = this.state.open ? 'Header__open' : 'Header__closed'
         return (
             <nav className={'Header ' + openClass}>
                 <h1>
                     <Link to='/'>
-                        Eatabout Logo
+                        <img src="https://imgur.com/rAyvAal.png" alt="logo"></img>
                     </Link>
                 </h1>
                 <div id="hamburger">
-                <HamburgerMenu 
-                    isOpen={this.state.open}
-                    menuClicked={this.onOpen.bind(this)}
-                    width={21}
-                    height={18}
-                    animationDuration={0.5}
-                />
+                    <HamburgerMenu
+                        isOpen={this.state.open}
+                        menuClicked={this.onOpen.bind(this)}
+                        width={21}
+                        height={18}
+                        animationDuration={0.5}
+                    />
                 </div>
                 {this.props.token ? this.renderLogoutLink() : this.renderLoginLink()}
             </nav>
