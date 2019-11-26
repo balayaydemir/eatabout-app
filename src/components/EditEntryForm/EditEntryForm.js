@@ -146,7 +146,7 @@ export default class EditEntryForm extends Component {
           this.setState({ error })
           swal({
             title: 'Uh oh!',
-            text: error.error,
+            text: error.message,
             icon: 'error',
             timer: 4000,
             button: true

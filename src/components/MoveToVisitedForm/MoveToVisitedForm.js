@@ -113,7 +113,7 @@ class MoveToVisitedForm extends Component {
               this.setState({ error: err })
               swal({
                 title: 'Uh oh!',
-                text: err.error,
+                text: err.message,
                 icon: 'error',
                 timer: 4000,
                 button: true
