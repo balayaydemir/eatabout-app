@@ -44,7 +44,9 @@ const AuthApiService = {
                     : res.json()
             )
             .then(res => {
-                window.sessionStorage.setItem('user_name', res.full_name.split(' ')[0])
+                const name = res.full_name.split(' ')[0]
+                window.sessionStorage.setItem('user_name', name)
+                return name
             })
     },
     getUserName() {

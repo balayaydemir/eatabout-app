@@ -51,10 +51,13 @@ wasCapsLockDeactivated = event => {
   }
 
   handleGetUserName = (user_name) => {
-    AuthApiService.setUserName(user_name)
-    this.setState({
-      userName: user_name
-    })
+    return AuthApiService.setUserName(user_name)
+      .then(res => {
+        this.setState({
+          userName: res
+        })
+      })
+    
   }
 
   handleClearUserName = (x) => {

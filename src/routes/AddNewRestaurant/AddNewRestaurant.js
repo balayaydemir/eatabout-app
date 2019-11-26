@@ -203,16 +203,6 @@ export default class AddNewRestaurant extends Component {
                       starColor={'#daa520'}
                       emptyStarColor={'#474647'}
                     />
-                {/* <input type="radio" value="1" name="rating" required></input>
-                <label htmlFor="rating">1</label>
-                <input type="radio" value="2" name="rating"></input>
-                <label htmlFor="rating">2</label>
-                <input type="radio" value="3" name="rating"></input>
-                <label htmlFor="rating">3</label>
-                <input type="radio" value="4" name="rating"></input>
-                <label htmlFor="rating">4</label>                        
-                <input type="radio" value="5" name="rating"></input>
-                <label htmlFor="rating">5</label> */}
             </div>
             <div className="form_section">
                         <label htmlFor="notes">Description: </label>
@@ -260,7 +250,7 @@ export default class AddNewRestaurant extends Component {
                         <label htmlFor="restaurant_city">City: </label>
                         <input type="text" name="restaurant_city" required></input>
                         <label htmlFor="restaurant_state">State: </label>
-                        <input type="text" name="restaurant_state" required></input>
+                        <input type="text" name="restaurant_state" maxLength="2" placeholder="ex. CA or NY" required></input>
                     </div>
                     {this.state.visited ? this.renderVisitedForm(rating) : ''}
                     {this.state.visited ?  

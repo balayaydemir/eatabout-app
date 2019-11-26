@@ -204,6 +204,9 @@ export default class RestaurantListPage extends Component {
             const filter = this.state.filterCuisineWishlist.toLowerCase()
             restaurants = restaurants.filter(itm => itm.restaurant.cuisine_name.toLowerCase() === filter)
         }
+        if (!restaurants.length) {
+            return <span>No results</span>
+        }
         return restaurants.map(restaurant => <WishlistItem key={restaurant.id} restaurant={restaurant} onDelete={this.onDelete} onMove={this.onMove}/>)
     }
 
@@ -220,6 +223,9 @@ export default class RestaurantListPage extends Component {
         if (this.state.filterRating) {
             const filter = this.state.filterRating
             restaurants = restaurants.filter(itm => itm.rating >= filter)
+        }
+        if (!restaurants.length) {
+            return <span>No results</span>
         }
         return restaurants.map(restaurant => <VisitedItem key={restaurant.id} restaurant={restaurant} onDelete={this.onDelete} onEdit={this.onEdit}/>)
     }
@@ -256,7 +262,7 @@ export default class RestaurantListPage extends Component {
         <h1>{this.props.userName}'s Restaurants</h1>
             </header>
             <section className="lists">
-                <Link to='/addrestaurant'><button type="button" id="addRestaurant">Add Restaurant</button></Link>
+                <Link to='/addrestaurant'><button type="button" id="addRestaurant" className="addRestaurant">Add Restaurant</button></Link>
                 <div className="wishlist">
                     <h3>Wishlist</h3>
         <button type="button" id="expand" onClick={this.toggleWishListExpand}>{this.state.wishlistExpand ? '-' : '+'}</button>

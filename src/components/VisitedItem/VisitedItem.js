@@ -53,7 +53,7 @@ export default class VisitedItem extends Component {
           <span>{restaurant.rating} &#9734;</span>
           </div>
         <div id="expanded_buttons">
-        <a href={restaurant.restaurant.website}><button className="website">Go to website</button></a>
+        <a href={restaurant.restaurant.website} target="_blank" rel="noopener noreferrer"><button className="website">Go to website</button></a>
         <button type="button" className="edit" onClick={this.toggleEdit}>Add new visit</button>
         <button type="button" className="delete_item" onClick={this.handleDelete}>Delete</button>
         </div>

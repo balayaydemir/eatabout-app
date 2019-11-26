@@ -185,8 +185,8 @@ class MoveToVisitedForm extends Component {
                   </ul>
                   <button type="button" className="add_another" onClick={this.createItem}>{!this.state.items.length ? 'Add an item' : 'Add another item'}</button>
                   </div>
-                  <div className="form_section">
-                    <label htmlFor="notes">Describe this experience:</label>
+                  <div className="form_section describe">
+                    <label htmlFor="notes">Describe the experience:</label>
                     <textarea name="notes" placeholder="Enter details"></textarea>
                   </div>
                   <div className="form_section">

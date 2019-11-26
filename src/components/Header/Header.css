@@ -38,6 +38,16 @@
       display: none;
   }
 
+  .App__header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+    background-color:  #F4F2F3;
+  }
+
   @media screen and (max-width: 768px) {
 
 
@@ -75,6 +85,12 @@
     }
    
 
+  }
+
+  @media screen and (min-width: 768px) {
+    .Header__open ul li {
+      font-size: 1.7em;
+    }
   }
 
  

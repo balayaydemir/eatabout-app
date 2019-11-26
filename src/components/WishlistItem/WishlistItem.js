@@ -27,7 +27,7 @@ export default class WishlistItem extends Component {
       return (
         <div className="expanded"> 
               <div className="expanded_info">
-                <a href={restaurant.restaurant.website}><button className="website">Go to website</button></a>
+                <a href={restaurant.restaurant.website} target="_blank" rel="noopener noreferrer"><button className="website">Go to website</button></a>
                 <button type="button" className="delete_item" onClick={this.handleDelete}>Delete</button>
               </div>
               <div className="move">

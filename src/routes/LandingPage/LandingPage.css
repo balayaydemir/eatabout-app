@@ -26,3 +26,9 @@
 #underline_header {
     border-top: 2px solid #687D76;
 }
+
+@media screen and (min-width: 768px) {
+    .LandingPage__section input {
+        font-size: 1.3em;
+    }
+}

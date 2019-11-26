@@ -20,3 +20,13 @@
 .login {
     margin-top: 50px;
 }
+
+@media screen and (min-width: 768px) {
+    #LoginForm__user_name, #LoginForm__password {
+        font-size: 1.3em;
+    }
+
+    h2 {
+        font-size: 2em;
+    }
+}

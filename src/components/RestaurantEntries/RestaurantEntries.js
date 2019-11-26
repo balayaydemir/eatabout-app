@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import './RestaurantEntries.css';
 
 
+
 export default class RestaurantEntries extends Component {
 
     state = {
-        expanded: false 
+        expanded: false, 
     }
+
 
     renderItems() {
         return this.props.entry.items.map(itm => {
@@ -16,7 +18,7 @@ export default class RestaurantEntries extends Component {
                     <div id="itm_name">
                     <span>{itm.name}</span>
                     </div>
-                    <a href={`${itm.image}`}>
+                    <a href={`${itm.image}`} target="_blank" rel="noopener noreferrer">
                         <img src={`${itm.image}`} alt="food"></img>
                     </a>
                     </div>
