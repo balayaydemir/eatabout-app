@@ -1,0 +1,31 @@
+.LoginForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    color: #474647;
+}
+
+.LoginForm input {
+    border: 1px solid #474647;
+    font-size: 0.9em;
+}
+
+.LoginForm div {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.login {
+    margin-top: 50px;
+    padding: 10px;
+}
+
+.login p {
+    font-size: 1.1em;
+}
+
+#demo_underline {
+    border-top: 2px solid #687D76;
+}

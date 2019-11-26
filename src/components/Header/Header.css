@@ -44,6 +44,7 @@
     #hamburger {
         display: block;
         padding: 5px;
+        cursor: pointer;
     }
 
     .Header ul li {
@@ -61,6 +62,13 @@
         right: 8px;
         top: 80px;
     }
+
+    .Header__open ul li {
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+
+  
 
     .Header__logged-in {
       transition-timing-function: ease-in-out;

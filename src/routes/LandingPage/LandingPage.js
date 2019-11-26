@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SignupForm from '../../components/SignupForm/SignupForm';
+import './LandingPage.css';
 
 
 export default class LandingPage extends Component {
@@ -11,38 +12,43 @@ export default class LandingPage extends Component {
 
     render() {
         return (
-            <>
+            <div className="LandingPage">
             <section className='LandingPage__section'>
                 <header>
-                    <h3>Keep track of your dining experiences, both future and past</h3>
+                    <h2>Keep track of your dining experiences, both future and past</h2>
                 </header>
-                <p>Eatabout helps you keep track of your must-try restaurants and your experiences from restaurants that you have already been to.</p>
+                <div id="underline_header"></div>
+                <p className="hidden">Eatabout helps you keep track of your must-try restaurants and your experiences from restaurants that you have already been to.</p>
             </section>
             <section className='LandingPage__section'>
                 <header>
-                    <h3>Create a hit list</h3>
+                    <h2>Create a Wishlist</h2>
                 </header>
-                <p>Every foodie has a mental (or physical) list of restaurants that they want to try. Eatabout provides you with a clean and simple interface where you can log these restaurants and organize them by cuisine and city. No more frantic googling to try and figure out the name of that one spot you've been dying to try.</p>
+                <div id="underline_header"></div>
+                <p className="hidden">Every foodie has a list of restaurants that they want to try. Eatabout provides you with a clean and simple interface where you can keep track of these places. No more frantic googling to try and figure out the name of that one spot you've been dying to try.</p>
             </section>
             <section className='LandingPage__section'>
                 <header>
-                    <h3>Record your experiences</h3>
+                    <h2>Record your experiences</h2>
                  </header>
-                 <p>Eatabout gives you the ability to keep a record of restaurants you have visited organized by city and cuisine. For each restaurant, you can provide a rating, photos and descriptions of the dishes you ate, and detailed notes about the experience. You can also share specific restaurants or an entire list with friends.</p>
+                 <div id="underline_header"></div>
+                 <p className="hidden">Eatabout gives you the ability to keep a record of restaurants you have visited. For each restaurant you can enter a rating, add photos of the dishes you ate, and keep detailed notes about the experience.</p>
             </section>
             <section className='LandingPage__section'>
                 <header>
-                    <h3>Expand your horizons</h3>
+                    <h2>Expand your horizons</h2>
                 </header>
-                <p>Personalized charts and statistics help you uncover patterns in your dining experiences so you can make a conscious effort to broaden your palate.</p>
+                <div id="underline_header"></div>
+                <p className="hidden">Personalized charts help you uncover patterns in your dining experiences so you can make a conscious effort to broaden your palate.</p>
             </section>
             <section className='LandingPage__section'>
                 <header>
-                    <h3>Ready to Eatabout?</h3>
+                    <h2>Ready to Eatabout?</h2>
                 </header>
+                <div id="underline_header"></div>
                  <SignupForm registrationSuccess={this.onRegistrationSuccess} capsLock={this.props.capsLock}/>
             </section>
-            </>
+            </div>
         )
     }
 }

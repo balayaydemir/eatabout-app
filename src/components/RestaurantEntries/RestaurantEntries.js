@@ -37,7 +37,7 @@ export default class RestaurantEntries extends Component {
         return (
                 <li id="restaurant_entry">
                 <div id="date_expand">
-                  {renderDate(entry.date)}
+                  <span>{renderDate(entry.date)}</span>
                 <button type="button" id="expand" onClick={this.toggleExpanded}>{this.state.expanded ? '-' : '+'}</button>
                 </div>
                   <ul id="entry_items">

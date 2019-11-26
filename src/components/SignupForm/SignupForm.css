@@ -1,0 +1,18 @@
+.SignUpForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    color: #474647;
+}
+
+.SignUpForm input {
+    border: 1px solid #474647;
+    font-size: 0.9em;
+}
+
+.SignUpForm div {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

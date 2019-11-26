@@ -25,12 +25,13 @@
 .expanded {
     padding: 5px;
     color: #474647;
+    
 }
 
 .expanded_info {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin: 5px 0 5px 0;
     font-size: 1em;
 }
@@ -45,7 +46,10 @@
 }
 
 .move {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-top: 5px;
 }
 

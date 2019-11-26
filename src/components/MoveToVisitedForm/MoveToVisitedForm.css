@@ -7,7 +7,10 @@
 }
 
 #eaten {
-    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #required {
@@ -35,7 +38,7 @@ textarea {
     background-color: #F4F2F3;
     cursor: pointer;
     color: #474647;
-    font-size: 0.8em;
+    font-size: 1em;
     margin-right: 2px;
 }
 
@@ -45,7 +48,7 @@ textarea {
     background-color: #F4F2F3;
     cursor: pointer;
     color: #474647;
-    font-size: 0.8em;
+    font-size: 1em;
     margin-left: 2px;
 }
 

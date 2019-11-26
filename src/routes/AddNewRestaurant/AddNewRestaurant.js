@@ -274,8 +274,8 @@ export default class AddNewRestaurant extends Component {
                      </div> 
                      : ''}
                     <div className="form_section">
-                        <button type="button" id="cancel_form" onClick={this.props.history.goBack}>Cancel</button>
-                        <button type="submit" id="submit">Submit</button>
+                        <button type="button" className="cancel_form" onClick={this.props.history.goBack}>Cancel</button>
+                        <button type="submit" className="submit">Submit</button>
                     </div>
                 </form>
            </section> 

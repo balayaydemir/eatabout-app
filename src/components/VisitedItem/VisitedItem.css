@@ -39,3 +39,15 @@
     flex-direction: row;
     justify-content: space-evenly;
 }
+
+.restaurant_entries {
+    text-align: center;
+}
+
+.restaurant_entries li {
+    margin-top: 7px;
+}
+
+#underline {
+    border-top: 2px solid #A49295;
+}

@@ -49,19 +49,21 @@ export default class VisitedItem extends Component {
       <div className="expanded">
         <div id="expanded_info">
         <span>Last visited: {this.renderDate(restaurant.date_visited)}</span>
-          <span>{restaurant.restaurant.cuisine_name}</span>
+          <span>Cuisine: {restaurant.restaurant.cuisine_name}</span>
           <span>{restaurant.rating} &#9734;</span>
           </div>
         <div id="expanded_buttons">
-        <a href={restaurant.restaurant.website}><button id="website">Go to website</button></a>
-        <button type="button" id="edit" onClick={this.toggleEdit}>Edit</button>
-        <button type="button" id="delete_item" onClick={this.handleDelete}>Delete</button>
+        <a href={restaurant.restaurant.website}><button className="website">Go to website</button></a>
+        <button type="button" className="edit" onClick={this.toggleEdit}>Add new visit</button>
+        <button type="button" className="delete_item" onClick={this.handleDelete}>Delete</button>
         </div>
         <p>{restaurant.description}</p>
+        {this.state.edit ? <EditEntryForm toggleEdit={this.toggleEdit} restaurant={this.props.restaurant} onEdit={this.props.onEdit}/> : ''}
         <ul className="restaurant_entries">
+          <span>Past visits</span>
+          <div id="underline"></div>
           {error ? <p>There was an error, try again</p> : this.renderEntries()}
         </ul>
-        {this.state.edit ? <EditEntryForm toggleEdit={this.toggleEdit} restaurant={this.props.restaurant} onEdit={this.props.onEdit}/> : ''}
         </div>
       )
     }

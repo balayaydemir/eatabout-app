@@ -190,8 +190,8 @@ class MoveToVisitedForm extends Component {
                     <textarea name="notes" placeholder="Enter details"></textarea>
                   </div>
                   <div className="form_section">
-                    <button type="button" id="cancel_form" onClick={this.handleCancel}>Cancel</button>
-                    <button type="submit" id="submit">Done</button>
+                    <button type="button" className="cancel_form" onClick={this.handleCancel}>Cancel</button>
+                    <button type="submit" className="submit">Done</button>
                   </div>
                 </form>
             </div>

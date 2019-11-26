@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AuthApiService from '../../services/auth-api-service';
+import './SignupForm.css';
 
 export default class SignupForm extends Component {
     static defaultProps = {
@@ -40,19 +41,19 @@ export default class SignupForm extends Component {
                     {error && <p className='red'>{error}</p>}
                 </div>
                 <div>
-                    <label htmlFor="SignUpForm__user_name">Username</label>
+                    <label htmlFor="SignUpForm__user_name">Username: </label>
                     <input placeholder='User Name' type="text" name='user_name' id='SignUpForm__user_name' />
                 </div>
                 <div>
-                    <label htmlFor="SignUpForm__full_name">Full name</label>
+                    <label htmlFor="SignUpForm__full_name">Full name: </label>
                     <input type="text" name='full_name' id='SignUpForm__full_name' placeholder='Full Name' />
                 </div>
                 <div>
-                    <label htmlFor="SignUpForm__password">Password</label>
+                    <label htmlFor="SignUpForm__password">Password: </label>
                     <input type="password" name='password' id='SignUpForm__password' />
                      {this.props.capsLock ? <strong>Caps Lock is On!</strong> : ''}
                 </div>
-            <button type='submit'>Sign Up</button>
+            <button type='submit' className="submit">Sign Up</button>
             </form>
         )
     }

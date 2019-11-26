@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import AuthApiService from '../../services/auth-api-service';
-import './LoginPage.css';
+import './Demo.css';
 
-export default class LoginPage extends Component {
+export default class Demo extends Component {
     static defaultProps = {
         location: {},
         history: {
@@ -51,7 +51,11 @@ export default class LoginPage extends Component {
             <>
                 <section className='login'>
                     <header>
-                        <h2>Login to your account</h2>
+                        <h2>Eatabout Demo</h2>
+                        <div id="demo_underline"></div>
+                        <p>Login with the following:</p>
+                        <p>Username: Eatabout_Demo</p>
+                        <p>Password: Password1!</p>
                     </header>
                     <form className="LoginForm" onSubmit={this.handleSubmitJwtAuth}>
                         <div role='alert'>

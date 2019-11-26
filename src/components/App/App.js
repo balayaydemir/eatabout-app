@@ -8,6 +8,7 @@ import StatsPage from '../../routes/StatsPage/StatsPage';
 import RestaurantListPage from '../../routes/RestaurantListPage/RestaurantListPage';
 import TokenService from '../../services/token-service';
 import AuthApiService from '../../services/auth-api-service';
+import Demo from '../../routes/Demo/Demo';
 import './App.css';
 
 const EVENT_KEY_DOWN = 'keydown'
@@ -79,6 +80,10 @@ wasCapsLockDeactivated = event => {
             <Route 
               path={'/login'}
               render={(routeProps) => <LoginPage {...routeProps} handleGetToken={this.handleGetToken} handleGetUserName={this.handleGetUserName} capsLock={this.state.isCapsLockActive}/>}
+            />
+            <Route 
+              path={'/demo'}
+              render={(routeProps) => <Demo {...routeProps} handleGetToken={this.handleGetToken} handleGetUserName={this.handleGetUserName} capsLock={this.state.isCapsLockActive}/>}
             />
             <Route 
               path={'/addrestaurant'}

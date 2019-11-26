@@ -54,8 +54,9 @@
     display: inline-block;
     background-color: #F4F2F3;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 1.2em;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .radio-toolbar input[type="radio"]:checked + label {
@@ -63,6 +64,12 @@
     color: #F4F2F3;
 }
 
+#visited {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 
 

@@ -1,0 +1,28 @@
+.LandingPage__section {
+    margin-top: 50px;
+}
+
+.LandingPage {
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.LandingPage__section p {
+    color: #474647;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.hidden {
+    display: none;
+    
+}
+
+.LandingPage__section:hover .hidden {
+    display: block;
+    transition-timing-function: cubic-bezier(0,0,1,1)
+}
+
+#underline_header {
+    border-top: 2px solid #687D76;
+}

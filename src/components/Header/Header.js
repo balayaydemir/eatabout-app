@@ -34,6 +34,10 @@ export default class Header extends Component {
                   to='/login'>
                   <li>Log In</li>
                 </Link>
+                <Link
+                  to='/demo'>
+                  <li>Demo</li>
+                </Link>
             </ul>
         )
     }
@@ -42,7 +46,7 @@ export default class Header extends Component {
             <ul className='Header__logged-in' onClick={this.onOpen}>
                 <Link
                     to='/myrestaurants'>
-                    <li>My Restaurants</li>
+                    <li>My Restaurants</li> 
                 </Link>
                 <Link 
                     to='/mystats'>

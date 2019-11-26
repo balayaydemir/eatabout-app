@@ -25,3 +25,45 @@ button {
 a {
   cursor: pointer;
 }
+
+span, label, p {
+  font-size: 1.2em;
+  font-family: "Lato", sans-serif;
+}
+
+.cancel_form, .submit, .add_another, .edit, .delete_item, .website {
+    border: 2px solid #687D76;
+    border-radius: 5px;
+    background-color: #F4F2F3;
+    cursor: pointer;
+    color: #474647;
+    font-size: 1em;
+    margin-right: 2px;
+    margin-top: 5px;
+}
+
+strong {
+  display: block;
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 5px;
+  position: relative;
+	background: #A49295;
+  border-radius: .4em;
+  padding: 5px;
+}
+
+strong:after {
+	content: '';
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-bottom-color: #A49295;
+	border-top: 0;
+	border-right: 0;
+	margin-left: -10px;
+	margin-top: -20px;
+}
