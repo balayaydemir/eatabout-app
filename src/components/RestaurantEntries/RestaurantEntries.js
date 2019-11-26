@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import config from '../../config';
 import './RestaurantEntries.css';
 
 
@@ -17,8 +16,8 @@ export default class RestaurantEntries extends Component {
                     <div id="itm_name">
                     <span>{itm.name}</span>
                     </div>
-                    <a href={`${config.IMG_SRC}/${itm.image}`}>
-                        <img src={`${config.IMG_SRC}/${itm.image}`} alt="food"></img>
+                    <a href={`${itm.image}`}>
+                        <img src={`${itm.image}`} alt="food"></img>
                     </a>
                     </div>
                     <p>{itm.description}</p>
