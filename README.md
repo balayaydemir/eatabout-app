@@ -23,16 +23,16 @@ Components: \
         RestaurantEntries: renders each entry on a visited restaurant when expanded \
         SignupForm: renders signup form at the end of landing page \
         VisitedItem: renders each visited item \
-        WishlistItem: renders each wishlist item \
+        WishlistItem: renders each wishlist item 
 
 Routes: \
-    Each route is labeled below in screenshots \
+    Each route is labeled below in screenshots 
 
 Services: \
     All API call functions live in the src directory in a folder titled services. \
         token-service: all functions for auth tokens - used primary in auth-api-service \
         auth-api-service: all user authentication and user sign up functions \
-        restaurant-api-service: all CRUD functions for the application \
+        restaurant-api-service: all CRUD functions for the application 
 
 
 Screenshots:
