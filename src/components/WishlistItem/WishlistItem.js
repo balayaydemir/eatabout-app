@@ -31,10 +31,13 @@ export default class WishlistItem extends Component {
           <button type="button" className="delete_item" onClick={this.handleDelete}>Delete</button>
         </div>
         <div className="move">
-          <span>Cuisine: {restaurant.restaurant.cuisine_name}</span>
-          <div>
-            <input type="checkbox" name='visited' checked={this.state.visited} onChange={this.toggleVisited}></input>
-            <label htmlFor='visited'>Visited</label>
+          <span id="cuisine">Cuisine: {restaurant.restaurant.cuisine_name}</span>
+          <div id="checkVisited">
+            <label htmlFor="defaultCheckbox" className="si si-checkbox">
+              <input type="checkbox" id="defaultCheckbox" checked={this.state.visited} onChange={this.toggleVisited}/>
+              <span className="si-label"></span>
+            </label>
+            <label htmlFor="si-checkbox" id="label">Visited</label>
           </div>
           {this.state.visited ? <MoveToVisitedForm restaurant={restaurant} toggleVisited={this.toggleVisited} onMove={this.props.onMove} /> : ''}
         </div>

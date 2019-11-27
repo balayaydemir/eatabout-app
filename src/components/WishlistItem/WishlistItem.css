@@ -53,4 +53,88 @@
     margin-top: 5px;
 }
 
+#cuisine {
+    margin-bottom: 10px;
+    border: none;
+}
 
+
+.si {
+    --color-label: #474647;
+    --color-default: #474647;
+    --color-active: #A49295;
+    --rotate-default: 180deg;
+    --rotate-active: 40deg;
+    --border-size-checkmark: 2px;
+    --border-size-box: 1px;
+    --input-size: 20px;
+    --guter: 30px;
+  }
+
+  .si,
+  .si *,
+  .si *::before,
+  .si *::after {
+    box-sizing: border-box;
+  }
+
+  .si {
+    cursor: pointer;
+    position: relative;
+    background-color: #F4F2F3;
+    border: 2px solid #687D76;
+  }
+  .si .si-label {
+    display: inline-block;
+    padding-left: var(--guter);
+    color: var(--color-label);
+    background-color: #F4F2F3;
+    vertical-align: text-top;
+    font-size: 1em;
+  }
+
+  .si > input { display: none; }
+
+
+.si.si-checkbox .si-label::before {
+    border-radius: var(--border-size-checkmark);
+  }
+
+  .si.si-checkbox .si-label::after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 18px;
+    border-width: 0 var(--border-size-checkmark) var(--border-size-checkmark) 0;
+    border-style: solid;
+    border-color: transparent var(--color-active) var(--color-active) transparent;
+    position: absolute;
+    top: 4px;
+    margin-left: 3px;
+    left: 0;
+    transform: rotate(var(--rotate-default)) scale(0);
+  }
+
+
+.si.si-checkbox > input:checked + .si-label::before {
+    transform: rotate(var(--rotate-active)) scale(0);
+  }
+
+  .si.si-checkbox > input:checked + .si-label::after {
+    left: 8px;
+    transform: rotate(var(--rotate-active)) scale(1);
+  }
+
+  #label {
+      margin-left: 10px;
+  }
+
+  #checkVisited {
+      margin-bottom: 10px;
+  }
+
+  @media screen and (max-width: 767px) {
+    .si.si-checkbox .si-label::after {
+        top: 1px; 
+    }
+  }
