@@ -53,7 +53,7 @@ Expanded Lists
 ![Home - restaurants page - expanded](https://imgur.com/AQ1145f.png)
 
 Move wishlist restaurant to visited 
-![Home - restaurants page - expanded - move to visited](https://imgur.com/pUCG05z.png)
+![Home - restaurants page - expanded - move to visited](https://imgur.com/GVjzDoY.png)
 
 Filter restaurants
 ![Home - restaurants page - expanded - filter](https://imgur.com/CVQfUEG.png)
