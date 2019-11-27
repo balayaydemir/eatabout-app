@@ -12,4 +12,4 @@ Summary:
     on restaurants they have been to or ones they want to go to on the fly.
 
 
-![Image description](https://imgur.com/3YLE3m2)
+![Landing page](https://imgur.com/3YLE3m2.png)
