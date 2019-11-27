@@ -3,7 +3,8 @@ import RestaurantsApiService from '../../services/restaurant-api-service';
 import swal from 'sweetalert';
 import ItemsEaten from '../../components/ItemsEaten/ItemsEaten';
 import './AddNewRestaurant.css';
-import StarRatingComponent from 'react-star-rating-component';
+import StarRating from '../../components/Rating/StarRating';
+
 
 
 export default class AddNewRestaurant extends Component {
@@ -22,11 +23,11 @@ export default class AddNewRestaurant extends Component {
         })
     }
 
-    ratingChange = (nextValue, prevValue, name) => {
-        this.setState({
-            rating: nextValue
-        })
-    }
+    ratingChange = (rating) => {
+         this.setState({
+             rating: rating
+         })
+     }
 
     componentDidMount() {
         this.setState({ error: null })
@@ -156,7 +157,7 @@ export default class AddNewRestaurant extends Component {
                     this.setState({ error: err })
                     swal({
                         title: 'Uh oh!',
-                        text: err.message,
+                        text: err.message + ' - Please select an image that is 3MB or less',
                         icon: 'error',
                         timer: 4000,
                         button: true
@@ -193,16 +194,9 @@ export default class AddNewRestaurant extends Component {
     renderVisitedForm(rating) {
         return (
             <>
-                <div className="form_section js_visited">
+                <div id="rating" className="form_section js_visited">
                     <label htmlFor="rating">Rate this restaurant: </label>
-                    <StarRatingComponent
-                        name="rating"
-                        starCount={5}
-                        value={rating}
-                        onStarClick={this.ratingChange.bind(this)}
-                        starColor={'#daa520'}
-                        emptyStarColor={'#474647'}
-                    />
+                    <StarRating totalStars={5} ratingChange={this.ratingChange}/>
                 </div>
                 <div className="form_section">
                     <label htmlFor="notes">Description: </label>

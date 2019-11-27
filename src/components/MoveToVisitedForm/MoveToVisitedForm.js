@@ -3,7 +3,8 @@ import RestaurantsApiService from '../../services/restaurant-api-service';
 import swal from 'sweetalert';
 import ItemsEaten from '../../components/ItemsEaten/ItemsEaten';
 import './MoveToVisitedForm.css';
-import StarRatingComponent from 'react-star-rating-component';
+import StarRating from '../Rating/StarRating';
+
 
 
 
@@ -69,9 +70,9 @@ class MoveToVisitedForm extends Component {
 
   }
 
-  ratingChange = (nextValue, prevValue, name) => {
+  ratingChange = (rating) => {
     this.setState({
-      rating: nextValue
+      rating: rating
     })
   }
 
@@ -113,7 +114,7 @@ class MoveToVisitedForm extends Component {
           this.setState({ error: err })
           swal({
             title: 'Uh oh!',
-            text: err.message,
+            text: err.message + ' - Please select an image that is 3MB or less',
             icon: 'error',
             timer: 4000,
             button: true
@@ -157,21 +158,14 @@ class MoveToVisitedForm extends Component {
   }
 
   render() {
-    const { error, rating } = this.state
+    const { error } = this.state
     return (
       <div id="move_item_container">
         <div className="error">{error ? <p>Something went wrong, try again</p> : ''}</div>
         <form id="move_item" onSubmit={this.moveToVisited}>
           <div className="form_section">
             <label htmlFor="rating">Rate this restaurant: </label>
-            <StarRatingComponent
-              name="rating"
-              starCount={5}
-              value={rating}
-              onStarClick={this.ratingChange.bind(this)}
-              starColor={'#daa520'}
-              emptyStarColor={'#474647'}
-            />
+            <StarRating totalStars={5} ratingChange={this.ratingChange}/>
           </div>
           <div className="form_section">
             <label htmlFor="visited_date">Visited on: </label>

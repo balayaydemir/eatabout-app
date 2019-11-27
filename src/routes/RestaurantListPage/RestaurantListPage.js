@@ -233,7 +233,7 @@ export default class RestaurantListPage extends Component {
     renderWishlist(error) {
         return (
             <>
-                <button type="button" className="filter" onClick={this.toggleWishListFilter}>{this.state.wishlistFilter ? 'Filter by -' : 'Filter by +'}</button>
+                <button type="button" className="filter" onClick={this.toggleWishListFilter}>{this.state.wishlistFilter ? 'Cancel Filter' : 'Filter by'}</button>
                 {this.state.wishlistFilter ? this.renderFilterWishlist() : ''}
                 <ul>
                     {error ? <p className='red'>There was an error, try again</p> : this.renderWishlistRestaurants()}
@@ -245,7 +245,7 @@ export default class RestaurantListPage extends Component {
     renderVisited(error) {
         return (
             <>
-                <button type="button" className="filter" onClick={this.toggleVisitedFilter}>{this.state.visitedFilter ? 'Filter by -' : 'Filter by +'}</button>
+                <button type="button" className="filter" onClick={this.toggleVisitedFilter}>{this.state.visitedFilter ? 'Cancel Filter' : 'Filter by'}</button>
                 {this.state.visitedFilter ? this.renderFilterVisited() : ''}
                 <ul>
                     {error ? <p className='red'>There was an error, try again</p> : this.renderVisitedRestaurants()}

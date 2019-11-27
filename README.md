@@ -1,6 +1,6 @@
 App name: Eatabout
 
-Live app: https://eatabout-app.now.sh/
+Live app: https://eatabout-app.balayaydemir.now.sh/
 
 Technologies used: HTML, CSS, Javascript, Postgresql, NodeJS, Express, ReactJS
 
@@ -10,4 +10,5 @@ Summary:
     dishes that you have eaten at a visited restaurant, and filter your lists by city, cuisine, and rating. The purpose
     of Eatabout is to give the user a simple interface for keeping track of this information so that they can find information
     on restaurants they have been to or ones they want to go to on the fly.
+
 

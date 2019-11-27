@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AuthApiService from '../../services/auth-api-service';
 import './LoginPage.css';
+import Loading from '../../components/Loading/Loading';
 
 export default class LoginPage extends Component {
     static defaultProps = {
@@ -12,7 +13,8 @@ export default class LoginPage extends Component {
 
 
     state = {
-        error: null
+        error: null,
+        loading: false
     }
 
 
@@ -26,7 +28,7 @@ export default class LoginPage extends Component {
 
     handleSubmitJwtAuth = e => {
         e.preventDefault();
-        this.setState({ error: null })
+        this.setState({ error: null, loading: true })
         const { user_name, password } = e.target;
         AuthApiService.postLogin({
             user_name: user_name.value,
@@ -36,6 +38,7 @@ export default class LoginPage extends Component {
                 this.props.handleGetUserName(user_name.value)
                 user_name.value = ''
                 password.value = ''
+                this.setState({ loading: false })
                 this.onLoginSuccess(res.authToken)
             })
             .catch(res => {
@@ -46,29 +49,31 @@ export default class LoginPage extends Component {
 
 
     render() {
-        const { error } = this.state
+        const { error, loading } = this.state
         return (
             <>
-                <section className='login'>
-                    <header>
-                        <h2>Login to your account</h2>
-                    </header>
-                    <form className="LoginForm" onSubmit={this.handleSubmitJwtAuth}>
-                        <div role='alert'>
-                            {error && <p className='red'>{error}</p>}
-                        </div>
-                        <div className="form_section">
-                            <label htmlFor="LoginForm__user_name">Username: </label>
-                            <input type="text" name="user_name" id="LoginForm__user_name"></input>
-                        </div>
-                        <div className="form_section">
-                            <label htmlFor="LoginForm__password">Password: </label>
-                            <input type="password" name="password" id="LoginForm__password"></input>
-                            {this.props.capsLock ? <strong>Caps Lock is On!</strong> : ''}
-                        </div>
-                        <button type="submit" className="submit">Log In</button>
-                    </form>
-                </section>
+                {loading ? <Loading /> :
+                    <section className='login'>
+                        <header>
+                            <h2>Login to your account</h2>
+                        </header>
+                        <form className="LoginForm" onSubmit={this.handleSubmitJwtAuth}>
+                            <div role='alert'>
+                                {error && <p className='red'>{error}</p>}
+                            </div>
+                            <div className="form_section">
+                                <label htmlFor="LoginForm__user_name">Username: </label>
+                                <input type="text" name="user_name" id="LoginForm__user_name"></input>
+                            </div>
+                            <div className="form_section">
+                                <label htmlFor="LoginForm__password">Password: </label>
+                                <input type="password" name="password" id="LoginForm__password"></input>
+                                {this.props.capsLock ? <strong>Caps Lock is On!</strong> : ''}
+                            </div>
+                            <button type="submit" className="submit">Log In</button>
+                        </form>
+                    </section>
+                }
             </>
         )
     }

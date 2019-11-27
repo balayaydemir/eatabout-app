@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Pie } from 'react-chartjs-2';
 import RestaurantsApiService from '../../services/restaurant-api-service';
 import randomColor from 'randomcolor';
+import Loading from '../Loading/Loading';
 
 
 export default class CuisineBreakdown extends Component {
@@ -13,10 +14,12 @@ export default class CuisineBreakdown extends Component {
                 backgroundColor: null,
                 data: null
             }
-        ]
+        ],
+        loading: false
     }
 
     componentDidMount() {
+        this.setState({ loading: true })
         RestaurantsApiService.getCuisineChartData()
             .then(cuisines => {
                 const labels = cuisines.map(cuisine => cuisine.cuisine_name)
@@ -27,7 +30,8 @@ export default class CuisineBreakdown extends Component {
                 newDatasets[0].backgroundColor = backgroundColors
                 this.setState({
                     labels: labels,
-                    datasets: newDatasets
+                    datasets: newDatasets,
+                    loading: false
                 })
             })
     }
@@ -35,15 +39,17 @@ export default class CuisineBreakdown extends Component {
     render() {
         return (
             <div>
-                <Pie
-                    data={this.state}
-                    options={{
-                        legend: {
-                            display: true,
-                            position: 'right'
-                        }
-                    }}
-                />
+                {this.state.loading ? <Loading /> :
+                    <Pie
+                        data={this.state}
+                        options={{
+                            legend: {
+                                display: true,
+                                position: 'right'
+                            }
+                        }}
+                    />
+                }
             </div>
         )
     }

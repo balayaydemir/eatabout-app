@@ -4,7 +4,7 @@ import './ItemsEaten.css';
 export default class ItemsEaten extends Component {
     render() {
         return (
-            <li className="item_eaten" id={'Item-' + this.props.index}>
+            <li className="item_eaten" id={'Item-' + this.props.index}> 
                 <div>
                     <label htmlFor="item_name">* Name of item: </label>
                     <input type="text" name="item_name" onChange={this.props.handleChange}></input>

@@ -53,6 +53,7 @@
     width: 100%;
     padding: 10px;
     background-color:  #F4F2F3;
+    z-index: 100;
   }
 
   a img {

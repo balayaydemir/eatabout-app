@@ -18,8 +18,8 @@ export default class RestaurantEntries extends Component {
                         <div id="itm_name">
                             <span>{itm.name}</span>
                         </div>
-                        <a href={`${itm.image}`} target="_blank" rel="noopener noreferrer">
-                            <img src={`${itm.image}`} alt="food"></img>
+                        <a href={itm.image ? itm.image : 'https://imgur.com/mR4d2VY.png'} target="_blank" rel="noopener noreferrer">
+                            <img src={itm.image ? itm.image : 'https://imgur.com/mR4d2VY.png'} alt="food"></img>
                         </a>
                     </div>
                     <p>{itm.description}</p>
