@@ -12,3 +12,5 @@ Summary:
     on restaurants they have been to or ones they want to go to on the fly.
 
 
+Screenshots
+
