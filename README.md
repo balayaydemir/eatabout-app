@@ -13,3 +13,21 @@ Summary:
 
 
 ![Landing page](https://imgur.com/3YLE3m2.png)
+![Landing page - expand on hover](https://imgur.com/aUdRfMe.png)
+![Demo login](https://imgur.com/4p6b1sG.png)
+![Home - restaurants page](https://imgur.com/wz0WyIm.png)
+![Home - restaurants page - expanded](https://imgur.com/AQ1145f.png)
+![Home - restaurants page - expanded - move to visited](https://imgur.com/pUCG05z.png)
+![Home - restaurants page - expanded - filter](https://imgur.com/CVQfUEG.png)
+![Home - restaurants page - expanded - visited](https://imgur.com/KMmEc4m.png)
+![Home - restaurants page - expanded - visited - add new visit](https://imgur.com/afMdaqA.png)
+![add new restaurant - wishlist](https://imgur.com/5KE09g1.png)
+![add new restaurant - visited](https://imgur.com/a6DoiYZ.png)
+![stats page](https://imgur.com/Lzyz4jW.png)
+
+
+
+
+
+
+
