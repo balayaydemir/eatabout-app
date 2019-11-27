@@ -4,35 +4,35 @@ Live app: https://eatabout-app.balayaydemir.now.sh/
 
 Technologies used: HTML, CSS, Javascript, Postgresql, NodeJS, Express, ReactJS
 
-Summary: 
+Summary: \
     Eatabout is an app that allows you to track restaurants you want to visit and those you have already visited.
     As a user, you can add a wishlist or visited restaurant, give your visited restaurants a rating, add photos of 
     dishes that you have eaten at a visited restaurant, and filter your lists by city, cuisine, and rating. The purpose
     of Eatabout is to give the user a simple interface for keeping track of this information so that they can find information
     on restaurants they have been to or ones they want to go to on the fly.
 
-Components:
-    All non-route components are located in the src directory in a folder titled components. Below is a description of the purpose of each component:
-        CuisineBreakdown: renders pie chart on stats route
-        EditEntryForm: renders edit entry form
-        Header: renders nav bar in main App component
-        ItemsEaten: renders each item added to the following forms: add new restaurant, edit entry, move to visited
-        Loading: renders loading indicator
-        MoveToVisitedForm: renders the move to visited form
-        Rating: renders star rating on all forms
-        RestaurantEntries: renders each entry on a visited restaurant when expanded
-        SignupForm: renders signup form at the end of landing page
-        VisitedItem: renders each visited item
-        WishlistItem: renders each wishlist item
+Components: \
+    All non-route components are located in the src directory in a folder titled components. Below is a description of the purpose of each component: \
+        CuisineBreakdown: renders pie chart on stats route \
+        EditEntryForm: renders edit entry form \
+        Header: renders nav bar in main App component \
+        ItemsEaten: renders each item added to the following forms: add new restaurant, edit entry, move to visited \
+        Loading: renders loading indicator \
+        MoveToVisitedForm: renders the move to visited form \
+        Rating: renders star rating on all forms \
+        RestaurantEntries: renders each entry on a visited restaurant when expanded \
+        SignupForm: renders signup form at the end of landing page \
+        VisitedItem: renders each visited item \
+        WishlistItem: renders each wishlist item \
 
-Routes:
-    Each route is labeled below in screenshots
+Routes: \
+    Each route is labeled below in screenshots \
 
-Services: 
-    All API call functions live in the src directory in a folder titled services.
-        token-service: all functions for auth tokens - used primary in auth-api-service
-        auth-api-service: all user authentication and user sign up functions
-        restaurant-api-service: all CRUD functions for the application
+Services: \
+    All API call functions live in the src directory in a folder titled services. \
+        token-service: all functions for auth tokens - used primary in auth-api-service \
+        auth-api-service: all user authentication and user sign up functions \
+        restaurant-api-service: all CRUD functions for the application \
 
 
 Screenshots:
