@@ -6,6 +6,7 @@
     border: 1px solid #474647;
     margin-top: 5px;
     padding: 5px;
+    width: 100%;
 }
 
 #move_item_container div {

@@ -67,7 +67,7 @@ export default class Header extends Component {
         return (
             <nav className={'Header ' + openClass}>
                 <h1>
-                    <Link to='/'>
+                    <Link to='/' className="link-hover">
                         <img src="https://imgur.com/rAyvAal.png" alt="logo"></img>
                     </Link>
                 </h1>
