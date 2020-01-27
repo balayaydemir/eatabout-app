@@ -8,6 +8,14 @@
     padding: 5px;
 }
 
+.name_location {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-basis: 60%;
+}
+
 #delete_item {
     border: 1px solid #474647;
     border-radius: 5px;
