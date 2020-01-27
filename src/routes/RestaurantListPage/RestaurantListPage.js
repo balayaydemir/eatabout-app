@@ -205,7 +205,11 @@ export default class RestaurantListPage extends Component {
             restaurants = restaurants.filter(itm => itm.restaurant.cuisine_name.toLowerCase() === filter)
         }
         if (!restaurants.length) {
-            return <span>No results</span>
+            if (this.state.wishlistFilter) {
+                return <p className="empty_text">No Results</p>
+            } else {
+                return <p className="empty_text">You don't have any wishlist restaurants yet! To start adding, click the "Add Restaurant" button above.</p>
+            }
         }
         return restaurants.map(restaurant => <WishlistItem key={restaurant.id} restaurant={restaurant} onDelete={this.onDelete} onMove={this.onMove} />)
     }
@@ -225,7 +229,11 @@ export default class RestaurantListPage extends Component {
             restaurants = restaurants.filter(itm => itm.rating >= filter)
         }
         if (!restaurants.length) {
-            return <span>No results</span>
+            if (this.state.visitedFilter) {
+                return <p className="empty_text">No Results</p>
+            } else {
+                return <p className="empty_text">You don't have any visited restaurants yet! To start adding, click the "Add Restaurant" button above or mark one of your wishlist restaurants as visited.</p>
+            }
         }
         return restaurants.map(restaurant => <VisitedItem key={restaurant.id} restaurant={restaurant} onDelete={this.onDelete} onEdit={this.onEdit} />)
     }

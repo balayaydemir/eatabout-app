@@ -8,6 +8,14 @@ header {
     padding: 10px;
 }
 
+.empty_text {
+    color: #474647;
+    text-align: center;
+    opacity: 0.8;
+    font-style: italic;
+    font-size: 1.3em;
+}
+
 .addRestaurant {
     font-size: 1em;
     background-color: #687D76;
