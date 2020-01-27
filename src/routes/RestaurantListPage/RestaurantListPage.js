@@ -3,6 +3,7 @@ import WishlistItem from '../../components/WishlistItem/WishlistItem';
 import VisitedItem from '../../components/VisitedItem/VisitedItem';
 import { Link } from 'react-router-dom';
 import RestaurantsApiService from '../../services/restaurant-api-service';
+import swal from 'sweetalert';
 import './RestaurantListPage.css';
 
 
@@ -87,7 +88,15 @@ export default class RestaurantListPage extends Component {
     }
 
     onDelete = (id) => {
+        let restaurant = this.state.restaurantsList.find(itm => itm.id === id)
         RestaurantsApiService.deleteUserRestaurant(id)
+        swal({
+            title: 'Done!',
+            text: `${restaurant.restaurant.name} has been deleted successfully.`,
+            icon: 'success',
+            timer: 4000,
+            button: true
+        })
         let newRestaurants = this.state.restaurantsList.filter(restaurant => restaurant.id !== id)
         this.setState({
             restaurantsList: newRestaurants
@@ -130,14 +139,21 @@ export default class RestaurantListPage extends Component {
     renderFilterWishlist() {
         return (
             <div className="wishlist_filter">
-                <label htmlFor="city_filter">Filter by city: </label>
-                <input type="test" id="city_filter" value={this.state.cityFilter} onChange={this.handleCityChange}></input>
-                <label htmlFor="cuisine_filter">Filter by cuisine: </label>
-                <select id="cuisine_filter" onChange={this.handleCuisineChange}>
-                    {this.state.cuisines.map(cuisine => {
-                        return <option key={cuisine.id}>{cuisine.cuisine_name}</option>
-                    })}
-                </select>
+                <div>
+                    <label className="filter_label" htmlFor="city_filter">Filter by city: 
+                        <input type="test" id="city_filter" value={this.state.cityFilter} onChange={this.handleCityChange}></input>
+                    </label>
+                </div>
+                <div>
+                    <label className="filter_label" htmlFor="cuisine_filter">Filter by cuisine: 
+                    <select id="cuisine_filter" onChange={this.handleCuisineChange}>
+                        {this.state.cuisines.map(cuisine => {
+                            return <option key={cuisine.id}>{cuisine.cuisine_name}</option>
+                        })}
+                    </select>
+                    </label>
+                </div>
+                <button id="filter" onClick={this.toggleWishListFilter}>Cancel</button>
             </div>
         )
     }
@@ -145,22 +161,32 @@ export default class RestaurantListPage extends Component {
     renderFilterVisited() {
         return (
             <div className="visited_filter">
-                <label htmlFor="city_filter">Filter by city: </label>
-                <input type="test" id="city_filter" value={this.state.cityFilter} onChange={this.handleCityChange}></input>
-                <label htmlFor="cuisine_filter">Filter by cuisine: </label>
-                <select id="cuisine_filter" onChange={this.handleCuisineChange}>
-                    {this.state.cuisines.map(cuisine => {
-                        return <option key={cuisine.id}>{cuisine.cuisine_name}</option>
-                    })}
-                </select>
-                <label htmlFor="rating_filter">Filter by rating: </label>
-                <select id="rating_filter" onChange={this.handleRatingChange}>
-                    <option>5 stars</option>
-                    <option>4 stars and up</option>
-                    <option>3 stars and up</option>
-                    <option>2 stars and up</option>
-                    <option>1 star and up</option>
-                </select>
+                <div>
+                    <label className="filter_label" htmlFor="city_filter">Filter by city: 
+                        <input type="test" id="city_filter" value={this.state.cityFilter} onChange={this.handleCityChange}></input>
+                    </label>
+                </div>
+                <div>
+                    <label className="filter_label" htmlFor="cuisine_filter">Filter by cuisine: 
+                    <select id="cuisine_filter" onChange={this.handleCuisineChange}>
+                        {this.state.cuisines.map(cuisine => {
+                            return <option key={cuisine.id}>{cuisine.cuisine_name}</option>
+                        })}
+                    </select>
+                    </label>
+                </div>
+                <div>
+                    <label className="filter_label" htmlFor="rating_filter">Filter by rating: 
+                    <select id="rating_filter" onChange={this.handleRatingChange}>
+                        <option>5 stars</option>
+                        <option>4 stars and up</option>
+                        <option>3 stars and up</option>
+                        <option>2 stars and up</option>
+                        <option>1 star and up</option>
+                    </select>
+                    </label>
+                </div>
+                <button id="filter" onClick={this.toggleVisitedFilter}>Cancel</button>
             </div>
         )
     }
@@ -241,7 +267,7 @@ export default class RestaurantListPage extends Component {
     renderWishlist(error) {
         return (
             <>
-                <button type="button" className="filter" onClick={this.toggleWishListFilter}>{this.state.wishlistFilter ? 'Cancel Filter' : 'Filter by'}</button>
+                <button type="button" id="filter" onClick={this.toggleWishListFilter}>Filter</button>
                 {this.state.wishlistFilter ? this.renderFilterWishlist() : ''}
                 <ul>
                     {error ? <p className='red'>There was an error, try again</p> : this.renderWishlistRestaurants()}
@@ -253,7 +279,7 @@ export default class RestaurantListPage extends Component {
     renderVisited(error) {
         return (
             <>
-                <button type="button" className="filter" onClick={this.toggleVisitedFilter}>{this.state.visitedFilter ? 'Cancel Filter' : 'Filter by'}</button>
+                <button type="button" id="filter" onClick={this.toggleVisitedFilter}>Filter</button>
                 {this.state.visitedFilter ? this.renderFilterVisited() : ''}
                 <ul>
                     {error ? <p className='red'>There was an error, try again</p> : this.renderVisitedRestaurants()}
