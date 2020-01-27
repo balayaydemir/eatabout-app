@@ -145,4 +145,8 @@
     .si.si-checkbox .si-label::after {
         top: 1px; 
     }
+
+    .name_location {
+      flex-basis: 80%;
+    }
   }

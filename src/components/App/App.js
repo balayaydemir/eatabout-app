@@ -110,4 +110,3 @@ wasCapsLockDeactivated = event => {
 export default App;
 
 
-// render={() => <LoginPage handleGetToken={this.handleGetToken}/>}

@@ -3,7 +3,7 @@ import WishlistItem from '../../components/WishlistItem/WishlistItem';
 import VisitedItem from '../../components/VisitedItem/VisitedItem';
 import { Link } from 'react-router-dom';
 import RestaurantsApiService from '../../services/restaurant-api-service';
-import swal from 'sweetalert';
+import Swal from 'sweetalert2';
 import './RestaurantListPage.css';
 
 
@@ -89,17 +89,22 @@ export default class RestaurantListPage extends Component {
 
     onDelete = (id) => {
         let restaurant = this.state.restaurantsList.find(itm => itm.id === id)
-        RestaurantsApiService.deleteUserRestaurant(id)
-        swal({
-            title: 'Done!',
-            text: `${restaurant.restaurant.name} has been deleted successfully.`,
-            icon: 'success',
-            timer: 4000,
-            button: true
+        Swal.fire({
+            title: 'Are you sure?',
+            text: `You are about to delete ${restaurant.restaurant.name}.`,
+            icon: 'warning',
+            confirmButtonText: "I'm sure!",
+            showCancelButton: true,
         })
-        let newRestaurants = this.state.restaurantsList.filter(restaurant => restaurant.id !== id)
-        this.setState({
-            restaurantsList: newRestaurants
+        .then(value => {
+            if (value.dismiss === 'cancel') return null
+            else {
+                RestaurantsApiService.deleteUserRestaurant(id)
+                let newRestaurants = this.state.restaurantsList.filter(restaurant => restaurant.id !== id)
+                this.setState({
+                    restaurantsList: newRestaurants
+                })
+            }
         })
     }
 
