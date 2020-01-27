@@ -40,6 +40,10 @@ header {
     font-weight: 600;
 }
 
+#expand:hover {
+    box-shadow: none;
+}
+
 ul {
     list-style-type: none;
     padding: 0;
