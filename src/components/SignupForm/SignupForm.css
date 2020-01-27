@@ -7,12 +7,16 @@
     color: #474647;
 }
 
-.SignUpForm input {
+.SignUpForm label input {
     border: 1px solid #474647;
-    font-size: 0.9em;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 0.8em;
 }
 
-.SignUpForm div {
+.SignUpForm label {
+    display: flex;
+    flex-direction: column;
     margin-top: 5px;
     margin-bottom: 5px;
 }
