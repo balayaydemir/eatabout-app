@@ -67,6 +67,7 @@
   a img:hover {
     outline: none;
     border: none;
+    box-shadow: none;
   }
   
 
