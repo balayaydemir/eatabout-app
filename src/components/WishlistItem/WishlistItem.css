@@ -33,7 +33,8 @@
 .expanded {
     padding: 5px;
     color: #474647;
-    
+    background-color: rgba(104, 125, 118, 0.137);
+    border: 1px solid rgba(104, 125, 118, 0.137);
 }
 
 .expanded_info {
