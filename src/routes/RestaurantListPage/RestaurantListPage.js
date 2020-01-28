@@ -144,12 +144,12 @@ export default class RestaurantListPage extends Component {
     renderFilterWishlist() {
         return (
             <div className="wishlist_filter">
-                <div>
+                <div className="wishlist_filter">
                     <label className="filter_label" htmlFor="city_filter">Filter by city: 
                         <input type="test" id="city_filter" value={this.state.cityFilter} onChange={this.handleCityChange}></input>
                     </label>
                 </div>
-                <div>
+                <div className="wishlist_filter">
                     <label className="filter_label" htmlFor="cuisine_filter">Filter by cuisine: 
                     <select id="cuisine_filter" onChange={this.handleCuisineChange}>
                         {this.state.cuisines.map(cuisine => {
@@ -166,12 +166,12 @@ export default class RestaurantListPage extends Component {
     renderFilterVisited() {
         return (
             <div className="visited_filter">
-                <div>
+                <div className="visited_filter">
                     <label className="filter_label" htmlFor="city_filter">Filter by city: 
                         <input type="test" id="city_filter" value={this.state.cityFilter} onChange={this.handleCityChange}></input>
                     </label>
                 </div>
-                <div>
+                <div className="visited_filter">
                     <label className="filter_label" htmlFor="cuisine_filter">Filter by cuisine: 
                     <select id="cuisine_filter" onChange={this.handleCuisineChange}>
                         {this.state.cuisines.map(cuisine => {
@@ -180,7 +180,7 @@ export default class RestaurantListPage extends Component {
                     </select>
                     </label>
                 </div>
-                <div>
+                <div className="visited_filter">
                     <label className="filter_label" htmlFor="rating_filter">Filter by rating: 
                     <select id="rating_filter" onChange={this.handleRatingChange}>
                         <option>5 stars</option>
