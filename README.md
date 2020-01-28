@@ -1,17 +1,17 @@
-App name: Eatabout
+# App name: Eatabout
 
 Live app: https://eatabout-app.balayaydemir.now.sh/
 
 Technologies used: HTML, CSS, Javascript, Postgresql, NodeJS, Express, ReactJS
 
-Summary: \
+## Summary: \
     Eatabout is an app that allows you to track restaurants you want to visit and those you have already visited.
     As a user, you can add a wishlist or visited restaurant, give your visited restaurants a rating, add photos of 
     dishes that you have eaten at a visited restaurant, and filter your lists by city, cuisine, and rating. The purpose
     of Eatabout is to give the user a simple interface for keeping track of this information so that they can find information
     on restaurants they have been to or ones they want to go to on the fly.
 
-Components: \
+## Components: \
     All non-route components are located in the src directory in a folder titled components. Below is a description of the purpose of each component: \
         CuisineBreakdown: renders pie chart on stats route \
         EditEntryForm: renders edit entry form \
@@ -25,17 +25,17 @@ Components: \
         VisitedItem: renders each visited item \
         WishlistItem: renders each wishlist item 
 
-Routes: \
+## Routes: \
     Each route is labeled below in screenshots 
 
-Services: \
+## Services: \
     All API call functions live in the src directory in a folder titled services. \
         token-service: all functions for auth tokens - used primary in auth-api-service \
         auth-api-service: all user authentication and user sign up functions \
         restaurant-api-service: all CRUD functions for the application 
 
 
-Screenshots:
+## Screenshots:
 
 Landing Page (located in Routes folder)
 ![Landing page](https://imgur.com/3YLE3m2.png)
