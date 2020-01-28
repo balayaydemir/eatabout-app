@@ -5,6 +5,7 @@
   "dependencies": {
     "chart.js": "^2.9.3",
     "cloudinary": "^1.17.0",
+    "firebase": "^7.7.0",
     "jwt-decode": "^2.2.0",
     "randomcolor": "^0.5.4",
     "react": "^16.12.0",

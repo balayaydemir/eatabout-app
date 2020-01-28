@@ -9,7 +9,6 @@ export default class RestaurantEntries extends Component {
         expanded: false,
     }
 
-
     renderItems() {
         return this.props.entry.items.map(itm => {
             return (

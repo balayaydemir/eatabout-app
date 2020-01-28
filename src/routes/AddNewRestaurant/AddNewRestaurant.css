@@ -6,6 +6,17 @@
     font-weight: 400;
 }
 
+.form_section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form_section label {
+    margin-right: 8px;
+}
+
 #add_restaurant {
     display: flex;
     flex-direction: column;
@@ -40,7 +51,7 @@
     width: 30%;
 }
 
-#cuisine {
+.form_section #cuisine {
     border: 1px solid #474647;
 }
 
@@ -69,6 +80,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+#rating {
+    display: flex;
+    flex-direction: column;
 }
 
 
