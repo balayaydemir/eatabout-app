@@ -35,6 +35,11 @@ img:hover {
 #food_entry {
   border: 1px solid #474647;
   border-radius: 5px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #F4F2F3;
 }
 
 #add_restaurant input {
