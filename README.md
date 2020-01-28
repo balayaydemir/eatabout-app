@@ -12,27 +12,27 @@ Technologies used: HTML, CSS, Javascript, Postgresql, NodeJS, Express, ReactJS
     on restaurants they have been to or ones they want to go to on the fly.
 
 ## Components: 
-    All non-route components are located in the src directory in a folder titled components. Below is a description of the purpose of each component: \
-        CuisineBreakdown: renders pie chart on stats route \
-        EditEntryForm: renders edit entry form \
-        Header: renders nav bar in main App component \
-        ItemsEaten: renders each item added to the following forms: add new restaurant, edit entry, move to visited \
-        Loading: renders loading indicator \
-        MoveToVisitedForm: renders the move to visited form \
-        Rating: renders star rating on all forms \
-        RestaurantEntries: renders each entry on a visited restaurant when expanded \
-        SignupForm: renders signup form at the end of landing page \
-        VisitedItem: renders each visited item \
-        WishlistItem: renders each wishlist item 
+    All non-route components are located in the src directory in a folder titled components. Below is a description of the purpose of each component: 
+        - CuisineBreakdown: renders pie chart on stats route 
+        - EditEntryForm: renders edit entry form 
+        - Header: renders nav bar in main App component 
+        - ItemsEaten: renders each item added to the following forms: add new restaurant, edit entry, move to visited
+        - Loading: renders loading indicator 
+        - MoveToVisitedForm: renders the move to visited form 
+        - Rating: renders star rating on all forms 
+        - RestaurantEntries: renders each entry on a visited restaurant when expanded 
+        - SignupForm: renders signup form at the end of landing page 
+        - VisitedItem: renders each visited item 
+        - WishlistItem: renders each wishlist item 
 
 ## Routes: 
     Each route is labeled below in screenshots 
 
 ## Services: 
-    All API call functions live in the src directory in a folder titled services. \
-        token-service: all functions for auth tokens - used primary in auth-api-service \
-        auth-api-service: all user authentication and user sign up functions \
-        restaurant-api-service: all CRUD functions for the application 
+    All API call functions live in the src directory in a folder titled services. 
+        - token-service: all functions for auth tokens - used primary in auth-api-service 
+        - auth-api-service: all user authentication and user sign up functions 
+        - restaurant-api-service: all CRUD functions for the application 
 
 
 ## Screenshots:
