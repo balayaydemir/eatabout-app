@@ -82,8 +82,10 @@ export default class VisitedItem extends Component {
     return (
       <li>
         <div className="display">
-          <span>{restaurant.restaurant.name}</span>
-          <span>{restaurant.restaurant.city}, {restaurant.restaurant.state}</span>
+          <div className="name_location">
+            <span>{restaurant.restaurant.name}</span>
+            <span>{restaurant.restaurant.city}, {restaurant.restaurant.state}</span>
+          </div>
           <button type="button" id="expand" onClick={this.toggleExpanded}>{this.state.expanded ? '-' : '+'}</button>
         </div>
         {this.state.expanded ? this.renderExpanded(restaurant, error) : ''}

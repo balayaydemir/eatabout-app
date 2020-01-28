@@ -7,18 +7,29 @@
     color: #474647;
 }
 
-.LoginForm input {
+.LoginForm label input {
     border: 1px solid #474647;
-    font-size: 0.9em;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 0.8em;
 }
 
-.LoginForm div {
+.LoginForm label {
+    display: flex;
+    flex-direction: column;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
 .login {
     margin-top: 50px;
+}
+
+.form_error {
+    font-size: 1em;
+    font-style: italic;
+    color: crimson;
+    margin: 5px;
 }
 
 @media screen and (min-width: 768px) {

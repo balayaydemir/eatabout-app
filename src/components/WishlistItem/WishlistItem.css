@@ -8,6 +8,14 @@
     padding: 5px;
 }
 
+.name_location {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-basis: 60%;
+}
+
 #delete_item {
     border: 1px solid #474647;
     border-radius: 5px;
@@ -25,7 +33,8 @@
 .expanded {
     padding: 5px;
     color: #474647;
-    
+    background-color: rgba(104, 125, 118, 0.137);
+    border: 1px solid rgba(104, 125, 118, 0.137);
 }
 
 .expanded_info {
@@ -136,5 +145,9 @@
   @media screen and (max-width: 767px) {
     .si.si-checkbox .si-label::after {
         top: 1px; 
+    }
+
+    .name_location {
+      flex-basis: 80%;
     }
   }

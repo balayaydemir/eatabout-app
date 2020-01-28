@@ -1,80 +1,105 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import AuthApiService from '../../services/auth-api-service';
+import { withRouter } from 'react-router-dom';
 import './LoginPage.css';
 import Loading from '../../components/Loading/Loading';
-
-export default class LoginPage extends Component {
-    static defaultProps = {
-        location: {},
-        history: {
-            push: () => { },
-        },
-    }
+import useFormValidation from '../../hooks/useFormValidation';
+import validateInput from '../../hooks/validateInput';
+import swal from 'sweetalert';
 
 
-    state = {
-        error: null,
-        loading: false
-    }
+const LoginPage = (props) => {
+    const [loading, setLoading] = useState(false)
+
+    const inputValues = {
+        username: '',
+        password: ''
+      };
 
 
-    onLoginSuccess = (authToken) => {
-        const { location, history } = this.props
+    const onLoginSuccess = (authToken) => {
+        const { location, history } = props
         const destination = (location.state || {}).from || '/myrestaurants'
-        this.props.handleGetToken(authToken)
+        props.handleGetToken(authToken)
         history.push(destination)
     }
 
 
-    handleSubmitJwtAuth = e => {
-        e.preventDefault();
-        this.setState({ error: null, loading: true })
-        const { user_name, password } = e.target;
+    const handleSubmitJwtAuth = () => {
+        setLoading(true)
+        const { username, password } = values;
         AuthApiService.postLogin({
-            user_name: user_name.value,
-            password: password.value,
+            user_name: username,
+            password: password,
         })
             .then(res => {
-                this.props.handleGetUserName(user_name.value)
-                user_name.value = ''
-                password.value = ''
-                this.setState({ loading: false })
-                this.onLoginSuccess(res.authToken)
+                props.handleGetUserName(username)
+                setLoading(false)
+                onLoginSuccess(res.authToken)
             })
-            .catch(res => {
-                this.setState({ error: res.error })
+            .catch(error => {
+                setLoading(false)
+                swal({
+                    title: 'Uh oh!',
+                    text: error.error,
+                    icon: 'error',
+                    button: true
+                })
             })
     }
 
-
-
-    render() {
-        const { error, loading } = this.state
+        const {
+            handleSubmit,
+            errors,
+            handleChange,
+            values,
+            handleBlur,
+            isSubmitting,
+          } = useFormValidation(
+            inputValues,
+            validateInput.validateLogin,
+            handleSubmitJwtAuth
+          );
         return (
             <>
-                {loading ? <Loading /> :
+                {loading ? <Loading /> : 
                     <section className='login'>
                         <header>
                             <h2>Login to your account</h2>
+                            <div id="demo_underline"></div>
                         </header>
-                        <form className="LoginForm" onSubmit={this.handleSubmitJwtAuth}>
-                            <div role='alert'>
-                                {error && <p className='red'>{error}</p>}
-                            </div>
-                            <div className="form_section">
-                                <label htmlFor="LoginForm__user_name">Username: </label>
-                                <input type="text" name="user_name" id="LoginForm__user_name"></input>
-                            </div>
-                            <div className="form_section">
-                                <label htmlFor="LoginForm__password">Password: </label>
-                                <input type="password" name="password" id="LoginForm__password"></input>
-                                {this.props.capsLock ? <strong>Caps Lock is On!</strong> : ''}
-                            </div>
-                            <button type="submit" className="submit">Log In</button>
+                        <form className="LoginForm" onSubmit={handleSubmit}>
+                            <label htmlFor="username">
+                                Username: 
+                                <input 
+                                    name="username"
+                                    type="text"
+                                    onChange={handleChange}
+                                    value={values.username}
+                                    onBlur={handleBlur}
+                                    placeholder="Username"
+                                />
+                            </label>
+                            {errors.username && <span className="form_error">*{errors.username}</span>}
+                            <label htmlFor="password">
+                                Password: 
+                                <input 
+                                    name="password"
+                                    type="password"
+                                    onChange={handleChange}
+                                    value={values.password}
+                                    onBlur={handleBlur}
+                                    placeholder="Password"
+                                />
+                            </label>
+                            {errors.password && <span className="form_error">*{errors.password}</span>}
+                            {props.capsLock ? <strong>Caps Lock is On!</strong> : ''}
+                            <button type="submit" className="submit" disabled={isSubmitting}>Log In</button>
                         </form>
                     </section>
                 }
             </>
         )
     }
-}
+
+    export default withRouter(LoginPage)

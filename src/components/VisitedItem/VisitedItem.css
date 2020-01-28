@@ -8,6 +8,22 @@
     padding: 5px;
 }
 
+#expand_visit {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #687D76;
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+#expand_visit:hover {
+    box-shadow: none;
+}
+
 #delete_item {
     border: 1px solid #474647;
     border-radius: 5px;
@@ -15,7 +31,7 @@
     cursor: pointer;
 }
 
-.display #expand {
+.display #expand_visit {
     font-size: 1.5em;
     font-weight: 600;
 }

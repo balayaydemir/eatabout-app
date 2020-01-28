@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RestaurantsApiService from '../../services/restaurant-api-service';
 import swal from 'sweetalert';
 import ItemsEaten from '../../components/ItemsEaten/ItemsEaten';
+import { storage } from '../../firebase/index';
 import './MoveToVisitedForm.css';
 import StarRating from '../Rating/StarRating';
 
@@ -94,32 +95,37 @@ class MoveToVisitedForm extends Component {
     }
     if (e.target.name === 'photo_upload') {
       const file = e.target.files[0]
-
-      RestaurantsApiService.uploadPhoto(file)
-        .then(res => {
-          newItems[targetItemIndex].photo = res
-          this.setState({
-            items: newItems
+      const uploadTask = storage.ref().child(`images/${file.name}`)
+      uploadTask.put(file)
+          .then(snapshot => {
+              swal({
+                  title: 'Done!',
+                  text: 'Photo uploaded successfully',
+                  icon: 'success',
+                  timer: 1500,
+                  button: false
+              })
+              return snapshot.metadata.fullPath
           })
-          swal({
-            title: 'Done!',
-            text: 'Photo uploaded successfully',
-            icon: 'success',
-            timer: 1500,
-            button: false
+          .then(res => {
+              const downloadTask = storage.ref().child(res)
+              downloadTask.getDownloadURL()
+                  .then(url => {
+                      newItems[targetItemIndex].photo = url
+                      this.setState({
+                          items: newItems
+                      })
+                  })
           })
-        })
-        .catch(err => {
-          console.error(err)
-          this.setState({ error: err })
-          swal({
-            title: 'Uh oh!',
-            text: err.message + ' - Please select an image that is 3MB or less',
-            icon: 'error',
-            timer: 4000,
-            button: true
+          .catch(error => {
+              swal({
+                  title: 'Uh oh!',
+                  text: error,
+                  icon: 'error',
+                  timer: 4000,
+                  button: true
+              })
           })
-        })
     }
   }
 
@@ -163,7 +169,7 @@ class MoveToVisitedForm extends Component {
       <div id="move_item_container">
         <div className="error">{error ? <p>Something went wrong, try again</p> : ''}</div>
         <form id="move_item" onSubmit={this.moveToVisited}>
-          <div className="form_section">
+          <div id="rating">
             <label htmlFor="rating">Rate this restaurant: </label>
             <StarRating totalStars={5} ratingChange={this.ratingChange}/>
           </div>

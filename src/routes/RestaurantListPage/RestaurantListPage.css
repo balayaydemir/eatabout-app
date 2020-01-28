@@ -8,6 +8,14 @@ header {
     padding: 10px;
 }
 
+.empty_text {
+    color: #474647;
+    text-align: center;
+    opacity: 0.8;
+    font-style: italic;
+    font-size: 1.3em;
+}
+
 .addRestaurant {
     font-size: 1em;
     background-color: #687D76;
@@ -40,41 +48,60 @@ header {
     font-weight: 600;
 }
 
+#expand:hover {
+    box-shadow: none;
+}
+
 ul {
     list-style-type: none;
     padding: 0;
 }
 
-.filter {
-    font-size: 1em;
+#filter {
+    font-size: 1.2em;
     background-color: #A49295;
     padding: 5px;
     border: 1px solid #A49295;
     border-radius: 5px;
     color: #F4F2F3;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 .wishlist_filter {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
     margin-top: 8px;
+}
+
+.filter_label {
+    font-size: 1.2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .wishlist_filter #city_filter {
     border: 1px solid #474647;
     margin-top: 5px;
+    font-size: 1em;
+    margin-left: 5px;
 }
 
 .wishlist_filter #cuisine_filter {
     border: 1px solid #474647;
     margin-top: 5px;
+    font-size: 1em;
+    margin-left: 5px;
 }
 
 .visited_filter {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
     align-items: center;
     margin-top: 8px;
 }
@@ -82,14 +109,20 @@ ul {
 .visited_filter #city_filter {
     border: 1px solid #474647;
     margin-top: 5px;
+    font-size: 1em;
+    margin-left: 5px;
 }
 
 .visited_filter #cuisine_filter {
     border: 1px solid #474647;
     margin-top: 5px;
+    font-size: 1em;
+    margin-left: 5px;
 }
 
 .visited_filter #rating_filter {
     border: 1px solid #474647;
     margin-top: 5px;
+    font-size: 1em;
+    margin-left: 5px;
 }

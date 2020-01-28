@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import RestaurantsApiService from '../../services/restaurant-api-service';
 import swal from 'sweetalert';
 import ItemsEaten from '../../components/ItemsEaten/ItemsEaten';
+import { storage } from '../../firebase/index';
 import './EditEntryForm.css';
 import StarRating from '../Rating/StarRating';
 
@@ -47,32 +48,37 @@ export default class EditEntryForm extends Component {
     }
     if (e.target.name === 'photo_upload') {
       const file = e.target.files[0]
-
-      RestaurantsApiService.uploadPhoto(file)
-        .then(res => {
-          newItems[targetItemIndex].photo = res
-          this.setState({
-            items: newItems
+      const uploadTask = storage.ref().child(`images/${file.name}`)
+      uploadTask.put(file)
+          .then(snapshot => {
+              swal({
+                  title: 'Done!',
+                  text: 'Photo uploaded successfully',
+                  icon: 'success',
+                  timer: 1500,
+                  button: false
+              })
+              return snapshot.metadata.fullPath
           })
-          swal({
-            title: 'Done!',
-            text: 'Photo uploaded successfully',
-            icon: 'success',
-            timer: 1500,
-            button: false
+          .then(res => {
+              const downloadTask = storage.ref().child(res)
+              downloadTask.getDownloadURL()
+                  .then(url => {
+                      newItems[targetItemIndex].photo = url
+                      this.setState({
+                          items: newItems
+                      })
+                  })
           })
-        })
-        .catch(err => {
-          console.error(err)
-          this.setState({ error: err })
-          swal({
-            title: 'Uh oh!',
-            text: err.error + ' - Please select an image that is 3MB or less',
-            icon: 'error',
-            timer: 4000,
-            button: true
+          .catch(error => {
+              swal({
+                  title: 'Uh oh!',
+                  text: error,
+                  icon: 'error',
+                  timer: 4000,
+                  button: true
+              })
           })
-        })
     }
   }
 
@@ -160,11 +166,11 @@ export default class EditEntryForm extends Component {
       <div id="edit_item_container">
         <div className="error">{error ? <p>Something went wrong, try again</p> : ''}</div>
         <form id="edit_item" onSubmit={this.handleSubmit}>
-          <div className="form_section">
+          <div id="rating">
             <label htmlFor="rating">Change rating:</label>
             <StarRating totalStars={5} ratingChange={this.ratingChange}/>
           </div>
-          <div className="form_section">
+          <div className="form_section_edit">
             <label htmlFor="visited_date">New visit date: </label>
             <input type="date" name="visited_date" required></input>
           </div>
@@ -176,11 +182,11 @@ export default class EditEntryForm extends Component {
             </ul>
             <button type="button" className="add_another" onClick={this.createItem}>{!this.state.items.length ? 'Add an item' : 'Add another item'}</button>
           </div>
-          <div className="form_section">
+          <div className="form_section_edit describe">
             <label htmlFor="notes">Describe this experience: </label>
             <textarea name="notes" placeholder="Enter details"></textarea>
           </div>
-          <div className="form_section">
+          <div className="form_section_edit">
             <button type="button" className="cancel_form" onClick={this.handleCancel}>Cancel</button>
             <button type="submit" className="submit">Done</button>
           </div>

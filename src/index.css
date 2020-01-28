@@ -20,11 +20,24 @@ h1, h2, h3, h4, h5, h6 {
 
 button {
   cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
 }
 
 a {
   cursor: pointer;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
 }
+
+button:hover {
+  box-shadow: 6px 6px lightgrey;
+}
+
+a:hover {
+  color: #A49295;
+}
+
 
 span, label, p {
   font-size: 1.2em;

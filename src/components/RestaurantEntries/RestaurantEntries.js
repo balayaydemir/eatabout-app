@@ -9,7 +9,6 @@ export default class RestaurantEntries extends Component {
         expanded: false,
     }
 
-
     renderItems() {
         return this.props.entry.items.map(itm => {
             return (
@@ -40,7 +39,7 @@ export default class RestaurantEntries extends Component {
             <li id="restaurant_entry">
                 <div id="date_expand">
                     <span>{renderDate(entry.date)}</span>
-                    <button type="button" id="expand" onClick={this.toggleExpanded}>{this.state.expanded ? '-' : '+'}</button>
+                    <button type="button" id="expand_visit" onClick={this.toggleExpanded}>{this.state.expanded ? '-' : '+'}</button>
                 </div>
                 <ul id="entry_items">
                     {this.state.expanded ? this.renderItems() : ''}

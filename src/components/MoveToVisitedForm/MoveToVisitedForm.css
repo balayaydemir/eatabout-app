@@ -6,7 +6,8 @@
     border: 1px solid #474647;
     margin-top: 5px;
     padding: 5px;
-    width: 100%;
+    width: 80%;
+    background-color: #F4F2F3;
 }
 
 #move_item_container div {
@@ -32,6 +33,11 @@
 
 .form_section {
     margin: 5px 0 5px 0;
+}
+
+.describe {
+    display: flex;
+    flex-direction: column;
 }
 
 textarea {
