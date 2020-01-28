@@ -2,7 +2,7 @@
 
 Live app: https://eatabout-app.balayaydemir.now.sh/
 
-Technologies used: HTML, CSS, Javascript, Postgresql, NodeJS, Express, ReactJS
+Technologies used: HTML, CSS, Javascript, Postgresql, NodeJS, Express, ReactJS, Firebase (for photo upload)
 
 ## Summary: 
     Eatabout is an app that allows you to track restaurants you want to visit and those you have already visited.
