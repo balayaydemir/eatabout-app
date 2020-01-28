@@ -34,6 +34,11 @@
     margin: 5px 0 5px 0;
 }
 
+.describe {
+    display: flex;
+    flex-direction: column;
+}
+
 textarea {
     border: 1px solid #474647;
     margin-top: 3px;

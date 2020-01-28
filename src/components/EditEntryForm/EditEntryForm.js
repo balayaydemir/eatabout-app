@@ -166,11 +166,11 @@ export default class EditEntryForm extends Component {
       <div id="edit_item_container">
         <div className="error">{error ? <p>Something went wrong, try again</p> : ''}</div>
         <form id="edit_item" onSubmit={this.handleSubmit}>
-          <div className="form_section">
+          <div id="rating">
             <label htmlFor="rating">Change rating:</label>
             <StarRating totalStars={5} ratingChange={this.ratingChange}/>
           </div>
-          <div className="form_section">
+          <div className="form_section_edit">
             <label htmlFor="visited_date">New visit date: </label>
             <input type="date" name="visited_date" required></input>
           </div>
@@ -182,11 +182,11 @@ export default class EditEntryForm extends Component {
             </ul>
             <button type="button" className="add_another" onClick={this.createItem}>{!this.state.items.length ? 'Add an item' : 'Add another item'}</button>
           </div>
-          <div className="form_section">
+          <div className="form_section_edit describe">
             <label htmlFor="notes">Describe this experience: </label>
             <textarea name="notes" placeholder="Enter details"></textarea>
           </div>
-          <div className="form_section">
+          <div className="form_section_edit">
             <button type="button" className="cancel_form" onClick={this.handleCancel}>Cancel</button>
             <button type="submit" className="submit">Done</button>
           </div>

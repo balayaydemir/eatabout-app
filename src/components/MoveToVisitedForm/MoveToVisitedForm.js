@@ -169,7 +169,7 @@ class MoveToVisitedForm extends Component {
       <div id="move_item_container">
         <div className="error">{error ? <p>Something went wrong, try again</p> : ''}</div>
         <form id="move_item" onSubmit={this.moveToVisited}>
-          <div className="form_section">
+          <div id="rating">
             <label htmlFor="rating">Rate this restaurant: </label>
             <StarRating totalStars={5} ratingChange={this.ratingChange}/>
           </div>
